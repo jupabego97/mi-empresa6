@@ -1,0 +1,39 @@
+<section class="nt-container" style="padding:2rem 0 4rem">
+  <h1 class="nt-heading" style="font-size:1.75rem;margin-bottom:0.5rem">
+    {% if search.performed %}
+      Resultados para "{{ search.terms }}"
+    {% else %}
+      Buscar productos
+    {% endif %}
+  </h1>
+  <p style="color:var(--nt-gray-500);margin-bottom:2rem">{{ search.results_count }} resultados</p>
+
+  <form action="{{ routes.search_url }}" method="get" role="search" style="margin-bottom:2.5rem;max-width:640px">
+    <div class="nt-search">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search' | t }}" autofocus>
+      <button type="submit">Buscar</button>
+    </div>
+  </form>
+
+  <div class="nt-grid nt-grid--4">
+    {% for item in search.results %}
+      {% if item.object_type == 'product' %}
+        {% render 'product-card', product: item %}
+      {% endif %}
+    {% else %}
+      {% if search.performed %}
+        <p style="grid-column:1/-1">No encontramos productos. <a href="{{ routes.collections_url }}" style="color:var(--nt-electric)">Ver categorías</a> o escríbenos por WhatsApp.</p>
+        {% render 'whatsapp-link', label: 'Ayuda por WhatsApp' %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Búsqueda",
+  "tag": "section",
+  "class": "section-main-search",
+  "settings": []
+}
+{% endschema %}

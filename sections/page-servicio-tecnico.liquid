@@ -1,0 +1,69 @@
+<section class="nt-hero" style="min-height:320px">
+  <div class="nt-container" style="padding:3rem 0;text-align:center">
+    <p class="nt-hero__eyebrow">Servicio técnico profesional</p>
+    <h1 class="nt-hero__title" style="max-width:640px;margin:0 auto 1rem">Reparación, upgrades y mantenimiento</h1>
+    <p class="nt-hero__subtitle" style="margin:0 auto 2rem">Taller real en El Carmen de Viboral. Técnicos certificados y diagnóstico honesto.</p>
+    {% assign diag = 'Hola NANOTRONICS, quiero solicitar un diagnóstico' %}
+    {% render 'whatsapp-link', message: diag, class: 'nt-btn--lg', label: 'Solicitar diagnóstico' %}
+  </div>
+</section>
+
+<section class="nt-section">
+  <div class="nt-container">
+    <div class="nt-grid nt-grid--3">
+      {% for block in section.blocks %}
+        <div class="nt-card" style="padding:2rem" {{ block.shopify_attributes }}>
+          <div style="font-size:2rem;margin-bottom:1rem">{{ block.settings.icon }}</div>
+          <h3 style="font-size:1.125rem;font-weight:800;margin-bottom:0.5rem">{{ block.settings.title }}</h3>
+          <p style="font-size:0.875rem;color:var(--nt-gray-500);line-height:1.6">{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="nt-section nt-section--gray">
+  <div class="nt-container">
+    <h2 class="nt-heading" style="text-align:center;margin-bottom:2.5rem">Cómo funciona</h2>
+    <div class="nt-grid nt-grid--4">
+      <div style="text-align:center"><span style="display:inline-flex;width:48px;height:48px;background:var(--nt-electric);color:white;border-radius:50%;align-items:center;justify-content:center;font-weight:800">1</span><p style="margin-top:1rem;font-weight:700">Contacto</p><p style="font-size:0.875rem;color:var(--nt-gray-500)">WhatsApp o tienda física</p></div>
+      <div style="text-align:center"><span style="display:inline-flex;width:48px;height:48px;background:var(--nt-electric);color:white;border-radius:50%;align-items:center;justify-content:center;font-weight:800">2</span><p style="margin-top:1rem;font-weight:700">Diagnóstico</p><p style="font-size:0.875rem;color:var(--nt-gray-500)">Evaluación sin compromiso</p></div>
+      <div style="text-align:center"><span style="display:inline-flex;width:48px;height:48px;background:var(--nt-electric);color:white;border-radius:50%;align-items:center;justify-content:center;font-weight:800">3</span><p style="margin-top:1rem;font-weight:700">Reparación</p><p style="font-size:0.875rem;color:var(--nt-gray-500)">Con repuestos de calidad</p></div>
+      <div style="text-align:center"><span style="display:inline-flex;width:48px;height:48px;background:var(--nt-electric);color:white;border-radius:50%;align-items:center;justify-content:center;font-weight:800">4</span><p style="margin-top:1rem;font-weight:700">Entrega</p><p style="font-size:0.875rem;color:var(--nt-gray-500)">Garantía en el trabajo</p></div>
+    </div>
+  </div>
+</section>
+
+{% if section.settings.show_content %}
+<section class="nt-section">
+  <div class="nt-container rte">{{ page.content }}</div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Servicio técnico",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_content", "label": "Mostrar contenido de página", "default": true }
+  ],
+  "blocks": [
+    { "type": "service", "name": "Servicio", "settings": [
+      { "type": "text", "id": "icon", "default": "💻" },
+      { "type": "text", "id": "title", "default": "Servicio" },
+      { "type": "textarea", "id": "text" }
+    ]}
+  ],
+  "presets": [{
+    "name": "Servicio técnico",
+    "blocks": [
+      { "type": "service", "settings": { "icon": "💻", "title": "Reparación PC", "text": "Diagnóstico y reparación de computadores y portátiles." }},
+      { "type": "service", "settings": { "icon": "⚡", "title": "Upgrades SSD/RAM", "text": "Mejora el rendimiento de tu equipo al instante." }},
+      { "type": "service", "settings": { "icon": "🧹", "title": "Mantenimiento", "text": "Limpieza, pasta térmica y optimización." }},
+      { "type": "service", "settings": { "icon": "🎮", "title": "Consolas", "text": "Reparación de consolas y controles." }},
+      { "type": "service", "settings": { "icon": "🔍", "title": "Diagnóstico", "text": "Evaluación profesional sin costo oculto." }},
+      { "type": "service", "settings": { "icon": "📦", "title": "Instalación SSD", "text": "Migración de datos incluida." }}
+    ]
+  }]
+}
+{% endschema %}

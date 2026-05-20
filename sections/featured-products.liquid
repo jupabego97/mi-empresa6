@@ -1,0 +1,45 @@
+<section class="nt-section nt-section--gray">
+  <div class="nt-container">
+    <div class="nt-section-header" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem">
+      <div>
+        <h2 class="nt-heading">{{ section.settings.title | default: 'Productos destacados' }}</h2>
+        <p class="nt-subheading">{{ section.settings.subtitle | default: 'Ofertas seleccionadas para máxima conversión' }}</p>
+      </div>
+      {% if section.settings.collection != blank %}
+        <a href="{{ section.settings.collection.url }}" class="nt-btn nt-btn--secondary">Ver todos →</a>
+      {% endif %}
+    </div>
+    <div class="nt-grid nt-grid--4">
+      {% assign collection = section.settings.collection %}
+      {% if collection != blank %}
+        {% for product in collection.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <div class="nt-card nt-product-card">
+            <div class="nt-product-card__media nt-skeleton" style="aspect-ratio:1"></div>
+            <div class="nt-product-card__body">
+              <div class="nt-skeleton" style="height:1rem;width:80%;margin-bottom:0.5rem"></div>
+              <div class="nt-skeleton" style="height:1.5rem;width:40%"></div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Productos destacados",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Productos destacados" },
+    { "type": "text", "id": "subtitle", "label": "Subtítulo" },
+    { "type": "collection", "id": "collection", "label": "Colección" },
+    { "type": "range", "id": "products_to_show", "min": 4, "max": 12, "step": 2, "default": 8, "label": "Productos a mostrar" }
+  ],
+  "presets": [{ "name": "Productos destacados" }]
+}
+{% endschema %}

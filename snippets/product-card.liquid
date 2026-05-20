@@ -1,0 +1,66 @@
+{% doc %}
+@param {product} product - Producto Shopify
+Card premium con CRO: descuento, cuotas, stock, quick add.
+{% enddoc %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+  {% assign discount_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+{% endif %}
+
+<article class="nt-card nt-product-card" data-nt-reveal>
+  <a href="{{ product.url }}" class="nt-product-card__media">
+    {% if product.featured_image %}
+      <img
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        alt="{{ product.featured_image.alt | escape }}"
+        width="600"
+        height="600"
+        loading="lazy"
+        decoding="async"
+      >
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {% endif %}
+    <div class="nt-product-card__badges">
+      {% if on_sale %}
+        <span class="nt-badge nt-badge--sale">-{{ discount_pct }}%</span>
+      {% endif %}
+      {% if product.tags contains 'nuevo' %}
+        <span class="nt-badge nt-badge--new">Nuevo</span>
+      {% endif %}
+    </div>
+    {% if product.available %}
+      <div class="nt-product-card__quick">
+        <form action="{{ routes.cart_add_url }}" method="post" data-nt-quick-add>
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          <button type="submit" class="nt-btn nt-btn--primary nt-btn--sm" aria-label="{{ 'general.quick_add' | t }}">
+            {{ 'general.quick_add' | t }}
+          </button>
+        </form>
+      </div>
+    {% endif %}
+  </a>
+  <div class="nt-product-card__body">
+    <a href="{{ product.url }}" class="nt-product-card__title">{{ product.title }}</a>
+    <div>
+      <span class="nt-product-card__price">{{ product.price | money }}</span>
+      {% if on_sale %}
+        <span class="nt-product-card__compare">{{ product.compare_at_price | money }}</span>
+      {% endif %}
+    </div>
+    {% if settings.show_installments %}
+      <p class="nt-product-card__installments">{{ settings.installments_text }}</p>
+    {% endif %}
+    {% if product.available %}
+      {% if current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 and settings.show_stock_urgency %}
+        <p class="nt-product-card__stock nt-product-card__stock--low">{{ 'general.low_stock' | t }} ({{ current_variant.inventory_quantity }})</p>
+      {% else %}
+        <p class="nt-product-card__stock">{{ 'general.in_stock' | t }}</p>
+      {% endif %}
+    {% else %}
+      <p class="nt-product-card__stock" style="color: var(--nt-danger)">{{ 'general.out_of_stock' | t }}</p>
+    {% endif %}
+  </div>
+</article>

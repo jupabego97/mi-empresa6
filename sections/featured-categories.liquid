@@ -1,0 +1,59 @@
+<section class="nt-section">
+  <div class="nt-container">
+    <div class="nt-section-header">
+      <h2 class="nt-heading">{{ section.settings.title | default: 'Explora por categoría' }}</h2>
+      <p class="nt-subheading">{{ section.settings.subtitle }}</p>
+    </div>
+    <div class="nt-grid nt-grid--4">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.url | default: '#' }}" class="nt-cat-card" {{ block.shopify_attributes }}>
+          {% if block.settings.image %}
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" loading="lazy" width="600" height="450">
+          {% else %}
+            <div style="background:linear-gradient(135deg,var(--nt-dark),var(--nt-royal));height:100%"></div>
+          {% endif %}
+          <div class="nt-cat-card__overlay">
+            <span class="nt-cat-card__title">{{ block.settings.title }}</span>
+            {% if block.settings.count != blank %}
+              <span class="nt-cat-card__count">{{ block.settings.count }}</span>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Categorías destacadas",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Explora por categoría" },
+    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Encuentra lo que necesitas en segundos" }
+  ],
+  "blocks": [
+    { "type": "category", "name": "Categoría", "settings": [
+      { "type": "text", "id": "title", "label": "Nombre", "default": "Categoría" },
+      { "type": "url", "id": "url", "label": "Enlace" },
+      { "type": "image_picker", "id": "image", "label": "Imagen" },
+      { "type": "text", "id": "count", "label": "Contador opcional", "default": "Ver productos →" }
+    ]}
+  ],
+  "presets": [{
+    "name": "Categorías destacadas",
+    "blocks": [
+      { "type": "category", "settings": { "title": "Portátiles" }},
+      { "type": "category", "settings": { "title": "Celulares" }},
+      { "type": "category", "settings": { "title": "Gaming" }},
+      { "type": "category", "settings": { "title": "Audio" }},
+      { "type": "category", "settings": { "title": "Accesorios" }},
+      { "type": "category", "settings": { "title": "TV y entretenimiento" }},
+      { "type": "category", "settings": { "title": "Impresión" }},
+      { "type": "category", "settings": { "title": "Seguridad" }},
+      { "type": "category", "settings": { "title": "Cuidado personal" }},
+      { "type": "category", "settings": { "title": "Servicio técnico", "url": "/pages/servicio-tecnico" }}
+    ]
+  }]
+}
+{% endschema %}

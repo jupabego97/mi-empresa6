@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-home",
+      "settings": {
+        "headline": "Marcas premium",
+        "subheadline": "Trabajamos con las mejores marcas del mercado tecnológico.",
+        "eyebrow": "Marcas"
+      }
+    },
+    "brands": { "type": "brands-carousel", "settings": { "title": "Nuestros partners" } },
+    "content": { "type": "page-content", "settings": {} }
+  },
+  "order": ["hero", "brands", "content"]
+}

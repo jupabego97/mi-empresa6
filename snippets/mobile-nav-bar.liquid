@@ -1,0 +1,28 @@
+{% doc %}
+Barra de navegación inferior móvil (thumb reach).
+{% enddoc %}
+<nav class="nt-mobile-bar" aria-label="Navegación móvil">
+  <a href="{{ routes.root_url }}" class="nt-mobile-bar__item {% if request.page_type == 'index' %}nt-mobile-bar__item--active{% endif %}">
+    {% render 'icon', name: 'home' %}
+    Inicio
+  </a>
+  <a href="{{ routes.collections_url }}" class="nt-mobile-bar__item">
+    {% render 'icon', name: 'grid' %}
+    Categorías
+  </a>
+  <a href="{{ routes.search_url }}" class="nt-mobile-bar__item">
+    {% render 'icon', name: 'search' %}
+    Buscar
+  </a>
+  <a href="https://wa.me/{{ settings.whatsapp_number }}" class="nt-mobile-bar__item" target="_blank" rel="noopener">
+    {% render 'icon', name: 'whatsapp' %}
+    WhatsApp
+  </a>
+  <a href="{{ routes.cart_url }}" class="nt-mobile-bar__item" style="position:relative">
+    {% render 'icon', name: 'cart' %}
+    Carrito
+    {% if cart.item_count > 0 %}
+      <span style="position:absolute;top:0;right:20%;background:var(--nt-electric);color:white;font-size:10px;font-weight:800;min-width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center">{{ cart.item_count }}</span>
+    {% endif %}
+  </a>
+</nav>

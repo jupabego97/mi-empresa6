@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "hero": { "type": "hero-home", "settings": {} },
+    "benefits": { "type": "benefits", "settings": {} },
+    "categories": { "type": "featured-categories", "settings": {} },
+    "featured": { "type": "featured-products", "settings": { "title": "Productos destacados", "products_to_show": 8 } },
+    "gaming": { "type": "gaming-section", "settings": {} },
+    "audio": { "type": "audio-section", "settings": {} },
+    "phones": { "type": "phones-section", "settings": {} },
+    "service": { "type": "service-banner", "settings": {} },
+    "testimonials": { "type": "testimonials", "settings": {} },
+    "brands": { "type": "brands-carousel", "settings": {} }
+  },
+  "order": ["hero", "benefits", "categories", "featured", "gaming", "audio", "phones", "service", "testimonials", "brands"]
+}

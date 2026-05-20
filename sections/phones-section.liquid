@@ -1,0 +1,47 @@
+<section class="nt-section nt-section--gray">
+  <div class="nt-container">
+    <div class="nt-section-header nt-section-header--center">
+      <h2 class="nt-heading">{{ section.settings.title | default: 'Celulares y accesorios' }}</h2>
+      <p class="nt-subheading">{{ section.settings.subtitle }}</p>
+    </div>
+    <div class="nt-grid nt-grid--3">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.url }}" class="nt-card" style="padding:2rem;text-align:center" {{ block.shopify_attributes }}>
+          <div style="font-size:2.5rem;margin-bottom:1rem">{{ block.settings.emoji | default: '📱' }}</div>
+          <h3 style="font-size:1.125rem;font-weight:700">{{ block.settings.title }}</h3>
+          <p style="font-size:0.875rem;color:var(--nt-gray-500);margin-top:0.5rem">{{ block.settings.text }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Celulares y accesorios",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "default": "Celulares y accesorios" },
+    { "type": "text", "id": "subtitle", "default": "Cargadores, cables, power banks y más" }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Item", "settings": [
+      { "type": "text", "id": "emoji", "default": "📱" },
+      { "type": "text", "id": "title", "default": "Celulares" },
+      { "type": "text", "id": "text" },
+      { "type": "url", "id": "url" }
+    ]}
+  ],
+  "presets": [{
+    "name": "Celulares y accesorios",
+    "blocks": [
+      { "type": "item", "settings": { "emoji": "📱", "title": "Celulares", "text": "Últimos modelos" }},
+      { "type": "item", "settings": { "emoji": "🔌", "title": "Cargadores", "text": "Carga rápida" }},
+      { "type": "item", "settings": { "emoji": "🔗", "title": "Cables", "text": "USB, HDMI y más" }},
+      { "type": "item", "settings": { "emoji": "🔋", "title": "Power banks", "text": "Energía portátil" }},
+      { "type": "item", "settings": { "emoji": "💾", "title": "Memorias", "text": "USB y micro SD" }},
+      { "type": "item", "settings": { "emoji": "🔀", "title": "Adaptadores", "text": "Hubs y convertidores" }}
+    ]
+  }]
+}
+{% endschema %}

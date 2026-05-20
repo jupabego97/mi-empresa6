@@ -1,0 +1,55 @@
+<footer class="nt-footer">
+  <div class="nt-container">
+    <div class="nt-footer__grid">
+      <div>
+        <a href="{{ routes.root_url }}" class="nt-header__logo" style="color:white;margin-bottom:1rem;display:inline-block">
+          NANO<span style="color:var(--nt-electric)">TRONICS</span>
+        </a>
+        <p style="font-size:0.875rem;line-height:1.7;max-width:320px">
+          La tienda tecnológica más confiable del oriente antioqueño. Tecnología, gaming, audio, accesorios y servicio técnico profesional.
+        </p>
+        <p style="margin-top:1rem;font-size:0.875rem">
+          📍 {{ settings.store_address }}<br>
+          📞 {{ settings.store_phone }}<br>
+          ✉️ {{ settings.store_email }}
+        </p>
+      </div>
+      <div>
+        <h3 class="nt-footer__title">Comprar</h3>
+        <a href="{{ routes.collections_url }}" class="nt-footer__link">Categorías</a>
+        <a href="{{ routes.collections_url }}/ofertas" class="nt-footer__link">Ofertas</a>
+        <a href="/pages/marcas" class="nt-footer__link">Marcas</a>
+        <a href="{{ routes.all_products_collection_url }}" class="nt-footer__link">Todos los productos</a>
+      </div>
+      <div>
+        <h3 class="nt-footer__title">Empresa</h3>
+        <a href="/pages/nosotros" class="nt-footer__link">Nosotros</a>
+        <a href="/pages/servicio-tecnico" class="nt-footer__link">Servicio técnico</a>
+        <a href="/pages/contacto" class="nt-footer__link">Contacto</a>
+        <a href="/policies/shipping-policy" class="nt-footer__link">Envíos</a>
+        <a href="/policies/refund-policy" class="nt-footer__link">Garantías</a>
+      </div>
+      <div>
+        <h3 class="nt-footer__title">Ayuda</h3>
+        <a href="https://wa.me/{{ settings.whatsapp_number }}" class="nt-footer__link" target="_blank">WhatsApp</a>
+        <a href="/pages/contacto" class="nt-footer__link">Soporte</a>
+        <a href="/pages/preguntas-frecuentes" class="nt-footer__link">FAQ</a>
+        {% if settings.social_instagram != blank %}
+          <a href="{{ settings.social_instagram }}" class="nt-footer__link" target="_blank">Instagram</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="nt-footer__bottom">
+      <span>© {{ 'now' | date: '%Y' }} NANOTRONICS · El Carmen de Viboral, Antioquia</span>
+      <span>Pagos seguros · Garantía real · {{ settings.store_hours }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": []
+}
+{% endschema %}

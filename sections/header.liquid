@@ -1,0 +1,95 @@
+<header class="nt-header" role="banner">
+  <div class="nt-header__top">
+    <div class="nt-container nt-header__top-inner">
+      <span class="nt-header__promo">
+        <strong>Envío a toda Colombia</strong> · Tienda física en {{ settings.store_address | default: 'El Carmen de Viboral' }}
+      </span>
+      <span>{{ settings.store_hours }}</span>
+    </div>
+  </div>
+
+  <div class="nt-header__main">
+    <div class="nt-container nt-header__inner">
+      <a href="{{ routes.root_url }}" class="nt-header__logo" aria-label="{{ shop.name }}">
+        {% if settings.logo %}
+          <img src="{{ settings.logo | image_url: width: settings.logo_width }}" alt="{{ shop.name }}" width="{{ settings.logo_width }}" loading="eager">
+        {% else %}
+          NANO<span>TRONICS</span>
+        {% endif %}
+      </a>
+
+      <form action="{{ routes.search_url }}" method="get" role="search" class="nt-header__search">
+        <div class="nt-search">
+          <input
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="{{ section.settings.search_placeholder | default: 'general.search' | t }}"
+            aria-label="{{ 'general.search' | t }}"
+            autocomplete="off"
+          >
+          <button type="submit" aria-label="{{ 'general.search_submit' | t }}">
+            {% render 'icon', name: 'search' %}
+          </button>
+        </div>
+      </form>
+
+      <div class="nt-header__actions">
+        <a href="{{ routes.account_url }}" class="nt-header__action">
+          {% render 'icon', name: 'user' %}
+          {{ 'general.login' | t }}
+        </a>
+        <a href="/pages/servicio-tecnico" class="nt-header__action" style="display:none" class="nt-hide-mobile">
+          {% render 'icon', name: 'shield' %}
+          {{ 'general.support' | t }}
+        </a>
+        {% render 'whatsapp-link', class: 'nt-btn--sm', label: 'WhatsApp' %}
+        <a href="{{ routes.cart_url }}" class="nt-header__action" style="position:relative">
+          {% render 'icon', name: 'cart' %}
+          {{ 'general.cart' | t }}
+          {% if cart.item_count > 0 %}
+            <span class="nt-header__cart-count">{{ cart.item_count }}</span>
+          {% endif %}
+        </a>
+        <button type="button" class="nt-header__action" data-nt-menu-toggle aria-expanded="false" aria-label="{{ 'accessibility.menu' | t }}" style="display:none">
+          {% render 'icon', name: 'menu' %}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="nt-header__nav" aria-label="Principal">
+    <div class="nt-container">
+      <ul class="nt-header__nav-list">
+        <li><a href="{{ routes.collections_url }}" class="nt-header__nav-link nt-header__nav-link--active">{{ 'general.categories' | t }}</a></li>
+        <li><a href="{{ routes.collections_url }}/ofertas" class="nt-header__nav-link nt-header__nav-link--highlight">{{ 'general.offers' | t }}</a></li>
+        <li><a href="/pages/marcas" class="nt-header__nav-link">{{ 'general.brands' | t }}</a></li>
+        <li><a href="/pages/servicio-tecnico" class="nt-header__nav-link">{{ 'general.technical_service' | t }}</a></li>
+        {% for link in linklists[section.settings.menu].links limit: 8 %}
+          <li><a href="{{ link.url }}" class="nt-header__nav-link">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Placeholder del buscador",
+      "default": "Buscar portátiles, celulares, gaming, audio..."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menú de categorías",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

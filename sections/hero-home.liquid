@@ -1,0 +1,47 @@
+<section class="nt-hero" aria-label="Hero principal">
+  <div class="nt-container nt-hero__grid">
+    <div>
+      <p class="nt-hero__eyebrow">{{ section.settings.eyebrow | default: 'NANOTRONICS · Viboral, Antioquia' }}</p>
+      <h1 class="nt-hero__title">{{ section.settings.headline | default: 'home.hero_headline' | t }}</h1>
+      <p class="nt-hero__subtitle">{{ section.settings.subheadline | default: 'home.hero_subheadline' | t }}</p>
+      <div class="nt-hero__ctas">
+        <a href="{{ section.settings.cta_primary_url | default: routes.collections_url }}" class="nt-btn nt-btn--primary nt-btn--lg">
+          {{ section.settings.cta_primary_label | default: 'general.view_products' | t }}
+        </a>
+        {% render 'whatsapp-link', class: 'nt-btn--lg', label: section.settings.cta_whatsapp_label %}
+      </div>
+    </div>
+    <div class="nt-hero__visual">
+      {% if section.settings.image %}
+        <img
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          alt="{{ section.settings.image.alt | default: 'Setup gamer premium NANOTRONICS' }}"
+          width="1200"
+          height="900"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {% else %}
+        <img src="https://images.unsplash.com/photo-1593305841991-05caca21f9fe?w=1200&q=80&auto=format&fit=crop" alt="Setup gamer moderno" width="1200" height="900" loading="eager" fetchpriority="high">
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Home",
+  "tag": "section",
+  "class": "section-hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "NANOTRONICS · Viboral, Antioquia" },
+    { "type": "text", "id": "headline", "label": "Título", "default": "Tecnología que impulsa tu rendimiento" },
+    { "type": "textarea", "id": "subheadline", "label": "Subtítulo", "default": "Portátiles, celulares, audio, gaming, accesorios, servicio técnico y mucho más." },
+    { "type": "image_picker", "id": "image", "label": "Imagen hero (setup gamer)" },
+    { "type": "url", "id": "cta_primary_url", "label": "URL CTA principal" },
+    { "type": "text", "id": "cta_primary_label", "label": "Texto CTA", "default": "Ver productos" },
+    { "type": "text", "id": "cta_whatsapp_label", "label": "Texto WhatsApp", "default": "Hablar por WhatsApp" }
+  ],
+  "presets": [{ "name": "Hero Home" }]
+}
+{% endschema %}

@@ -1,0 +1,18 @@
+<section class="nt-section">
+  <div class="nt-container" style="max-width:800px">
+    {% if page.title != blank %}
+      <h1 class="nt-heading" style="margin-bottom:2rem">{{ page.title }}</h1>
+    {% endif %}
+    <div class="rte" style="line-height:1.8;color:var(--nt-gray-600)">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contenido de página",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,63 @@
+{
+  "general": {
+    "search": "Buscar productos, marcas, categorías...",
+    "search_submit": "Buscar",
+    "cart": "Carrito",
+    "login": "Ingresar",
+    "support": "Soporte",
+    "whatsapp": "WhatsApp",
+    "offers": "Ofertas",
+    "brands": "Marcas",
+    "technical_service": "Servicio técnico",
+    "categories": "Categorías",
+    "view_products": "Ver productos",
+    "add_to_cart": "Agregar al carrito",
+    "buy_now": "Comprar ahora",
+    "quick_add": "Agregar rápido",
+    "out_of_stock": "Agotado",
+    "in_stock": "En stock",
+    "low_stock": "¡Últimas unidades!",
+    "free_shipping": "Envíos a toda Colombia",
+    "physical_store": "Tienda física en Viboral",
+    "warranty": "Garantía real",
+    "secure_payment": "Pagos seguros",
+    "personal_advice": "Asesoría personalizada",
+    "installments": "Cuotas disponibles",
+    "related_products": "Productos relacionados",
+    "specifications": "Especificaciones",
+    "description": "Descripción",
+    "faq": "Preguntas frecuentes",
+    "reviews": "Opiniones de clientes",
+    "compare": "Comparar",
+    "subtotal": "Subtotal",
+    "shipping": "Envío",
+    "total": "Total",
+    "continue_shopping": "Seguir comprando",
+    "checkout": "Finalizar compra",
+    "empty_cart": "Tu carrito está vacío",
+    "trust_local": "Confianza del oriente antioqueño"
+  },
+  "home": {
+    "hero_headline": "Tecnología que impulsa tu rendimiento",
+    "hero_subheadline": "Portátiles, celulares, audio, gaming, accesorios, servicio técnico y mucho más.",
+    "hero_secondary": "Todo lo que necesitas en tecnología y electrónica"
+  },
+  "product": {
+    "guarantee": "Garantía oficial",
+    "shipping_info": "Envío a toda Colombia",
+    "ask_whatsapp": "Consultar por WhatsApp",
+    "zoom_hint": "Pasa el cursor para ampliar"
+  },
+  "service": {
+    "title": "Servicio técnico profesional",
+    "cta": "Solicitar diagnóstico",
+    "repair": "Reparación de computadores",
+    "upgrade": "Upgrades y SSD",
+    "maintenance": "Mantenimiento preventivo"
+  },
+  "accessibility": {
+    "skip_to_content": "Ir al contenido",
+    "menu": "Menú",
+    "close": "Cerrar"
+  }
+}

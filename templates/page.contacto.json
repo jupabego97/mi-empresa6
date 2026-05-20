@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-home",
+      "settings": {
+        "headline": "Contáctanos",
+        "subheadline": "Estamos en El Carmen de Viboral. Escríbenos por WhatsApp o visítanos.",
+        "cta_primary_label": "Ver ubicación",
+        "cta_whatsapp_label": "WhatsApp directo"
+      }
+    },
+    "content": { "type": "page-content", "settings": {} }
+  },
+  "order": ["hero", "content"]
+}

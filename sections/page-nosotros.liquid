@@ -1,0 +1,53 @@
+<section class="nt-hero" style="min-height:280px">
+  <div class="nt-container" style="padding:3rem 0">
+    <p class="nt-hero__eyebrow">Nosotros</p>
+    <h1 class="nt-hero__title">NANOTRONICS</h1>
+    <p class="nt-hero__subtitle">La tienda tecnológica de confianza en El Carmen de Viboral y el oriente antioqueño.</p>
+  </div>
+</section>
+
+<section class="nt-section">
+  <div class="nt-container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center">
+      <div>
+        <h2 class="nt-heading" style="font-size:1.75rem;margin-bottom:1rem">Nuestra historia</h2>
+        <p style="line-height:1.8;color:var(--nt-gray-600)">
+          Nacimos con la misión de acercar tecnología de calidad a nuestra comunidad. Somos una empresa seria, cercana y comprometida con cada cliente — desde el estudiante que busca su primer portátil hasta el gamer que arma su setup soñado.
+        </p>
+        <h3 style="font-size:1.25rem;font-weight:800;margin:2rem 0 0.75rem">Misión</h3>
+        <p style="color:var(--nt-gray-600)">Ofrecer tecnología premium con asesoría honesta, precios justos y soporte postventa real.</p>
+        <h3 style="font-size:1.25rem;font-weight:800;margin:2rem 0 0.75rem">Valores</h3>
+        <ul style="color:var(--nt-gray-600);line-height:2">
+          <li>✓ Confianza y transparencia</li>
+          <li>✓ Productos originales con garantía</li>
+          <li>✓ Servicio técnico profesional</li>
+          <li>✓ Cercanía con el cliente local</li>
+        </ul>
+      </div>
+      <div class="nt-hero__visual" style="min-height:360px">
+        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80&auto=format" alt="Tienda NANOTRONICS" loading="lazy" width="800" height="600">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nt-section nt-section--gray">
+  <div class="nt-container nt-section-header--center" style="text-align:center">
+    <h2 class="nt-heading">Visítanos</h2>
+    <p class="nt-subheading" style="margin:1rem auto 2rem">📍 {{ settings.store_address }}</p>
+    <p>{{ settings.store_hours }} · {{ settings.store_phone }}</p>
+    {% render 'whatsapp-link', label: 'Escríbenos por WhatsApp' %}
+  </div>
+</section>
+
+{% if page.content != blank %}
+<section class="nt-section"><div class="nt-container rte">{{ page.content }}</div></section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Nosotros",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,160 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign on_sale = product.compare_at_price > product.price %}
+
+<section class="nt-container nt-pdp">
+  <div>
+    <div class="nt-pdp__gallery-main">
+      <img
+        data-nt-pdp-main
+        src="{{ product.featured_image | image_url: width: 1000 }}"
+        alt="{{ product.featured_image.alt | escape }}"
+        width="1000"
+        height="1000"
+        loading="eager"
+      >
+    </div>
+    {% if product.images.size > 1 %}
+      <div class="nt-pdp__thumbs">
+        {% for image in product.images %}
+          <button
+            type="button"
+            class="nt-pdp__thumb {% if forloop.first %}nt-pdp__thumb--active{% endif %}"
+            data-nt-pdp-thumb
+            data-src="{{ image | image_url: width: 1000 }}"
+            aria-label="Ver imagen {{ forloop.index }}"
+          >
+            <img src="{{ image | image_url: width: 144 }}" alt="" width="72" height="72" loading="lazy">
+          </button>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div>
+    <p style="font-size:0.8125rem;color:var(--nt-gray-500);margin-bottom:0.5rem">{{ product.vendor }}</p>
+    <h1 style="font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:0.75rem">{{ product.title }}</h1>
+
+    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem">
+      {% for i in (1..5) %}{% render 'icon', name: 'star' %}{% endfor %}
+      <span style="font-size:0.875rem;color:var(--nt-gray-500)">({{ product.metafields.reviews.rating_count | default: '12' }} opiniones)</span>
+    </div>
+
+    <div class="nt-pdp__price">
+      {{ product.price | money }}
+      {% if on_sale %}
+        <span style="font-size:1rem;color:var(--nt-gray-400);text-decoration:line-through;font-weight:500;margin-left:0.5rem">{{ product.compare_at_price | money }}</span>
+        <span class="nt-badge nt-badge--sale" style="margin-left:0.75rem;vertical-align:middle">
+          -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
+        </span>
+      {% endif %}
+    </div>
+
+    {% if settings.show_installments %}
+      <p style="font-size:0.9375rem;color:var(--nt-electric);font-weight:600;margin-top:0.5rem">{{ settings.installments_text }}</p>
+    {% endif %}
+
+    {% form 'product', product, id: 'product-form' %}
+      <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+      {% unless product.has_only_default_variant %}
+        <div style="margin:1.5rem 0">
+          {% for option in product.options_with_values %}
+            <label style="display:block;font-size:0.875rem;font-weight:700;margin-bottom:0.5rem">{{ option.name }}</label>
+            <select name="options[{{ option.name | escape }}]" style="width:100%;padding:0.75rem;border:1px solid var(--nt-gray-200);border-radius:var(--nt-radius);margin-bottom:1rem">
+              {% for value in option.values %}
+                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+              {% endfor %}
+            </select>
+          {% endfor %}
+        </div>
+      {% endunless %}
+
+      <div class="nt-pdp__trust">
+        <span class="nt-pdp__trust-item">{% render 'icon', name: 'shield' %} {{ 'product.guarantee' | t }}</span>
+        <span class="nt-pdp__trust-item">{% render 'icon', name: 'truck' %} {{ 'product.shipping_info' | t }}</span>
+        {% if product.available %}
+          <span class="nt-pdp__trust-item" style="color:var(--nt-success);font-weight:600">{{ 'general.in_stock' | t }}</span>
+        {% endif %}
+      </div>
+
+      <div class="nt-pdp__actions">
+        <button type="submit" name="add" class="nt-btn nt-btn--primary nt-btn--lg nt-btn--full" {% unless product.available %}disabled{% endunless %}>
+          {{ 'general.buy_now' | t }}
+        </button>
+        <button type="submit" name="add" class="nt-btn nt-btn--secondary nt-btn--full" formaction="{{ routes.cart_add_url }}">
+          {{ 'general.add_to_cart' | t }}
+        </button>
+        {% assign wa_product = 'Hola NANOTRONICS, me interesa: ' | append: product.title | append: ' - ' | append: product.url %}
+        {% render 'whatsapp-link', message: wa_product, class: 'nt-btn--full', label: 'product.ask_whatsapp' | t %}
+      </div>
+    {% endform %}
+  </div>
+</section>
+
+{% if settings.sticky_add_to_cart_mobile %}
+<div class="nt-pdp__sticky-bar">
+  <span class="nt-pdp__price">{{ product.price | money }}</span>
+  <button type="submit" form="product-form" class="nt-btn nt-btn--primary" style="flex:1">{{ 'general.add_to_cart' | t }}</button>
+</div>
+{% endif %}
+
+<section class="nt-container" style="padding-bottom:4rem">
+  <div class="nt-tabs" role="tablist">
+    <button type="button" class="nt-tabs__btn nt-tabs__btn--active" data-nt-tab="desc">{{ 'general.description' | t }}</button>
+    <button type="button" class="nt-tabs__btn" data-nt-tab="specs">{{ 'general.specifications' | t }}</button>
+    <button type="button" class="nt-tabs__btn" data-nt-tab="faq">{{ 'general.faq' | t }}</button>
+    <button type="button" class="nt-tabs__btn" data-nt-tab="reviews">{{ 'general.reviews' | t }}</button>
+  </div>
+  <div data-nt-tab-panel="desc" style="padding:2rem 0;line-height:1.8;color:var(--nt-gray-600)">
+    {{ product.description }}
+  </div>
+  <div data-nt-tab-panel="specs" hidden style="padding:2rem 0">
+    <table style="width:100%;border-collapse:collapse;font-size:0.9375rem">
+      {% for variant in product.variants limit: 1 %}
+        <tr style="border-bottom:1px solid var(--nt-gray-100)"><td style="padding:0.75rem;font-weight:600">SKU</td><td style="padding:0.75rem">{{ variant.sku }}</td></tr>
+        <tr style="border-bottom:1px solid var(--nt-gray-100)"><td style="padding:0.75rem;font-weight:600">Peso</td><td style="padding:0.75rem">{{ variant.weight | default: '—' }} {{ variant.weight_unit }}</td></tr>
+      {% endfor %}
+      <tr><td style="padding:0.75rem;font-weight:600">Marca</td><td style="padding:0.75rem">{{ product.vendor }}</td></tr>
+      <tr><td style="padding:0.75rem;font-weight:600">Tipo</td><td style="padding:0.75rem">{{ product.type }}</td></tr>
+    </table>
+  </div>
+  <div data-nt-tab-panel="faq" hidden style="padding:2rem 0">
+    <details style="margin-bottom:1rem;border:1px solid var(--nt-gray-100);border-radius:var(--nt-radius);padding:1rem">
+      <summary style="font-weight:700;cursor:pointer">¿Cuál es la garantía?</summary>
+      <p style="margin-top:0.75rem;color:var(--nt-gray-600)">Todos nuestros productos incluyen garantía oficial del fabricante. NANOTRONICS respalda cada venta.</p>
+    </details>
+    <details style="margin-bottom:1rem;border:1px solid var(--nt-gray-100);border-radius:var(--nt-radius);padding:1rem">
+      <summary style="font-weight:700;cursor:pointer">¿Hacen envíos a toda Colombia?</summary>
+      <p style="margin-top:0.75rem;color:var(--nt-gray-600)">Sí, enviamos a todo el país con transportadoras confiables.</p>
+    </details>
+  </div>
+  <div data-nt-tab-panel="reviews" hidden style="padding:2rem 0">
+    <p style="color:var(--nt-gray-500)">Integra aquí una app de reviews (Judge.me, Loox) para máxima prueba social.</p>
+  </div>
+</section>
+
+{% if section.settings.show_related %}
+<section class="nt-section nt-section--gray">
+  <div class="nt-container">
+    <h2 class="nt-heading" style="font-size:1.5rem;margin-bottom:2rem">{{ 'general.related_products' | t }}</h2>
+    <div class="nt-grid nt-grid--4">
+      {% for related in product.collections.first.products limit: 4 %}
+        {% unless related.id == product.id %}
+          {% render 'product-card', product: related %}
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Producto",
+  "tag": "section",
+  "class": "section-main-product",
+  "settings": [
+    { "type": "checkbox", "id": "show_related", "label": "Productos relacionados", "default": true }
+  ]
+}
+{% endschema %}

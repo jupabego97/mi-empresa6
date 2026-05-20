@@ -1,0 +1,36 @@
+<section class="nt-section">
+  <div class="nt-container">
+    <div class="nt-service-banner">
+      <div>
+        <span style="font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;opacity:0.9">Servicio técnico</span>
+        <h2 style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;margin:0.75rem 0 1rem">{{ section.settings.title | default: 'service.title' | t }}</h2>
+        <p style="opacity:0.9;line-height:1.7;max-width:520px">{{ section.settings.text }}</p>
+        <ul style="margin:1.5rem 0;display:flex;flex-wrap:wrap;gap:0.75rem 1.5rem;font-size:0.875rem;font-weight:600">
+          <li>✓ Reparación de computadores</li>
+          <li>✓ Upgrades y SSD</li>
+          <li>✓ Mantenimiento</li>
+          <li>✓ Diagnóstico gratis</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-start">
+        <a href="/pages/servicio-tecnico" class="nt-btn nt-btn--secondary nt-btn--lg" style="background:white;color:var(--nt-royal)">{{ section.settings.cta_secondary | default: 'Conocer servicios' }}</a>
+        {% assign diag_msg = 'Hola, quiero solicitar un diagnóstico técnico' %}
+        {% render 'whatsapp-link', message: diag_msg, class: 'nt-btn--lg', label: section.settings.cta | default: 'service.cta' | t %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner servicio técnico",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "default": "Tu equipo en las mejores manos" },
+    { "type": "textarea", "id": "text", "default": "Reparación, upgrades, limpieza e instalación de SSD. Taller real en Viboral con técnicos certificados." },
+    { "type": "text", "id": "cta", "default": "Solicitar diagnóstico" },
+    { "type": "text", "id": "cta_secondary", "default": "Conocer servicios" }
+  ],
+  "presets": [{ "name": "Banner servicio técnico" }]
+}
+{% endschema %}

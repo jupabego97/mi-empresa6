@@ -1,0 +1,42 @@
+<section class="nt-section nt-section--gray">
+  <div class="nt-container">
+    <div class="nt-benefits">
+      {% for block in section.blocks %}
+        <div class="nt-benefit" {{ block.shopify_attributes }}>
+          <div class="nt-benefit__icon">{% render 'icon', name: block.settings.icon %}</div>
+          <p class="nt-benefit__title">{{ block.settings.title }}</p>
+          <p class="nt-benefit__text">{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Beneficios",
+  "tag": "section",
+  "blocks": [
+    { "type": "benefit", "name": "Beneficio", "settings": [
+      { "type": "select", "id": "icon", "label": "Ícono", "options": [
+        { "value": "truck", "label": "Envío" },
+        { "value": "shield", "label": "Garantía" },
+        { "value": "star", "label": "Calidad" }
+      ], "default": "truck" },
+      { "type": "text", "id": "title", "label": "Título", "default": "Beneficio" },
+      { "type": "text", "id": "text", "label": "Descripción", "default": "Descripción breve" }
+    ]}
+  ],
+  "presets": [{
+    "name": "Beneficios",
+    "blocks": [
+      { "type": "benefit", "settings": { "icon": "truck", "title": "Envíos Colombia", "text": "Entrega rápida nacional" }},
+      { "type": "benefit", "settings": { "icon": "shield", "title": "Tienda física", "text": "Viboral, Antioquia" }},
+      { "type": "benefit", "settings": { "icon": "shield", "title": "Garantía real", "text": "Productos originales" }},
+      { "type": "benefit", "settings": { "icon": "shield", "title": "Soporte técnico", "text": "Reparación y upgrades" }},
+      { "type": "benefit", "settings": { "icon": "shield", "title": "Pagos seguros", "text": "Múltiples métodos" }},
+      { "type": "benefit", "settings": { "icon": "star", "title": "Asesoría", "text": "Expertos en tecnología" }}
+    ]
+  }]
+}
+{% endschema %}

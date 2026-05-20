@@ -1,0 +1,34 @@
+<section class="nt-section">
+  <div class="nt-container">
+    <div class="nt-feature-banner nt-feature-banner--reverse">
+      <div class="nt-feature-banner__media">
+        {% if section.settings.image %}
+          <img src="{{ section.settings.image | image_url: width: 900 }}" alt="Audio y entretenimiento" loading="lazy" width="900" height="600">
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=900&q=80&auto=format" alt="Audio premium" loading="lazy" width="900" height="600">
+        {% endif %}
+      </div>
+      <div class="nt-feature-banner__content" style="background:var(--nt-gray-50);color:var(--nt-dark)">
+        <span class="nt-feature-banner__label">Audio & TV</span>
+        <h2 class="nt-feature-banner__title">{{ section.settings.title | default: 'Sonido que transforma' }}</h2>
+        <p style="color:var(--nt-gray-500);margin-bottom:1.5rem">{{ section.settings.text }}</p>
+        <a href="{{ section.settings.url | default: '#' }}" class="nt-btn nt-btn--primary">{{ section.settings.cta }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Audio y entretenimiento",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "default": "Sonido que transforma tu experiencia" },
+    { "type": "textarea", "id": "text", "default": "Parlantes, audífonos, televisores y micrófonos de las mejores marcas." },
+    { "type": "url", "id": "url" },
+    { "type": "text", "id": "cta", "default": "Explorar audio" },
+    { "type": "image_picker", "id": "image" }
+  ],
+  "presets": [{ "name": "Audio y entretenimiento" }]
+}
+{% endschema %}

@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "main": { "type": "page-servicio-tecnico", "settings": { "show_content": true } }
+  },
+  "order": ["main"]
+}

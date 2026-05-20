@@ -1,0 +1,167 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "NANOTRONICS Premium",
+    "theme_version": "1.0.0",
+    "theme_author": "NANOTRONICS",
+    "theme_documentation_url": "https://github.com/jupabego97/mi-empresa6",
+    "theme_support_url": "https://wa.me/573001234567"
+  },
+  {
+    "name": "Marca",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 80,
+        "max": 280,
+        "step": 10,
+        "unit": "px",
+        "label": "Ancho del logo",
+        "default": 160
+      },
+      {
+        "type": "text",
+        "id": "brand_tagline",
+        "label": "Eslogan",
+        "default": "Tecnología que impulsa tu rendimiento"
+      }
+    ]
+  },
+  {
+    "name": "Colores",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_electric",
+        "label": "Azul eléctrico",
+        "default": "#0066FF"
+      },
+      {
+        "type": "color",
+        "id": "color_royal",
+        "label": "Azul royal",
+        "default": "#1E3A8A"
+      },
+      {
+        "type": "color",
+        "id": "color_dark",
+        "label": "Fondo oscuro",
+        "default": "#0F172A"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Acento CTA",
+        "default": "#0066FF"
+      }
+    ]
+  },
+  {
+    "name": "WhatsApp",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "Número WhatsApp (sin +)",
+        "default": "573001234567",
+        "info": "Ej: 573001234567"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message",
+        "label": "Mensaje predeterminado",
+        "default": "Hola NANOTRONICS, necesito ayuda con:"
+      },
+      {
+        "type": "checkbox",
+        "id": "whatsapp_floating",
+        "label": "Botón flotante WhatsApp",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Tienda física",
+    "settings": [
+      {
+        "type": "text",
+        "id": "store_address",
+        "label": "Dirección",
+        "default": "El Carmen de Viboral, Antioquia, Colombia"
+      },
+      {
+        "type": "text",
+        "id": "store_phone",
+        "label": "Teléfono",
+        "default": "+57 300 123 4567"
+      },
+      {
+        "type": "text",
+        "id": "store_email",
+        "label": "Email",
+        "default": "ventas@nanotronics.co"
+      },
+      {
+        "type": "text",
+        "id": "store_hours",
+        "label": "Horario",
+        "default": "Lun–Sáb 9:00 AM – 7:00 PM"
+      }
+    ]
+  },
+  {
+    "name": "Conversión",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_installments",
+        "label": "Mostrar cuotas en productos",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "installments_text",
+        "label": "Texto cuotas",
+        "default": "Hasta 12 cuotas sin interés"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_stock_urgency",
+        "label": "Mostrar urgencia de stock",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_add_to_cart_mobile",
+        "label": "Sticky Add to Cart en móvil",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Redes sociales",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube",
+        "label": "YouTube"
+      }
+    ]
+  }
+]

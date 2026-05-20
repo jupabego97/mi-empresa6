@@ -1,0 +1,56 @@
+<section class="nt-section nt-section--gray">
+  <div class="nt-container">
+    <div class="nt-section-header nt-section-header--center">
+      <h2 class="nt-heading">{{ section.settings.title | default: 'Lo que dicen nuestros clientes' }}</h2>
+      <p class="nt-subheading">{{ section.settings.subtitle | default: 'general.trust_local' | t }}</p>
+    </div>
+    <div class="nt-grid nt-grid--3">
+      {% for block in section.blocks %}
+        <blockquote class="nt-testimonial" {{ block.shopify_attributes }}>
+          <div class="nt-testimonial__stars" aria-label="5 estrellas">
+            {% for i in (1..5) %}{% render 'icon', name: 'star' %}{% endfor %}
+          </div>
+          <p class="nt-testimonial__text">"{{ block.settings.quote }}"</p>
+          <footer class="nt-testimonial__author">
+            {% if block.settings.avatar %}
+              <img class="nt-testimonial__avatar" src="{{ block.settings.avatar | image_url: width: 88 }}" alt="{{ block.settings.name }}" width="44" height="44" loading="lazy">
+            {% else %}
+              <div class="nt-testimonial__avatar"></div>
+            {% endif %}
+            <div>
+              <strong style="font-size:0.875rem">{{ block.settings.name }}</strong>
+              <p style="font-size:0.75rem;color:var(--nt-gray-400)">{{ block.settings.location | default: 'Viboral, Antioquia' }}</p>
+            </div>
+          </footer>
+        </blockquote>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonios",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "default": "Lo que dicen nuestros clientes" },
+    { "type": "text", "id": "subtitle", "default": "Confianza del oriente antioqueño" }
+  ],
+  "blocks": [
+    { "type": "review", "name": "Review", "settings": [
+      { "type": "textarea", "id": "quote", "label": "Testimonio", "default": "Excelente servicio y productos originales. La mejor tienda de tecnología de la zona." },
+      { "type": "text", "id": "name", "label": "Nombre", "default": "Cliente verificado" },
+      { "type": "text", "id": "location", "label": "Ubicación" },
+      { "type": "image_picker", "id": "avatar", "label": "Foto" }
+    ]}
+  ],
+  "presets": [{
+    "name": "Testimonios",
+    "blocks": [
+      { "type": "review", "settings": { "quote": "Compré mi portátil gamer aquí. Asesoría top y garantía real. 100% recomendados.", "name": "Andrés M.", "location": "Rionegro" }},
+      { "type": "review", "settings": { "quote": "Repararon mi PC en el día. Técnicos serios y precios justos.", "name": "Laura P.", "location": "Viboral" }},
+      { "type": "review", "settings": { "quote": "Siempre encuentro lo que busco. Envío rápido y atención por WhatsApp excelente.", "name": "Carlos R.", "location": "Marinilla" }}
+    ]
+  }]
+}
+{% endschema %}

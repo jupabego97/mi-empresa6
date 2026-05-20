@@ -1,0 +1,38 @@
+<section class="nt-section">
+  <div class="nt-container">
+    <div class="nt-section-header nt-section-header--center">
+      <h2 class="nt-heading" style="font-size:1.5rem">{{ section.settings.title | default: 'Marcas que confiamos' }}</h2>
+    </div>
+    <div class="nt-brands">
+      {% for block in section.blocks %}
+        <span class="nt-brands__item" {{ block.shopify_attributes }}>{{ block.settings.name }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marcas",
+  "tag": "section",
+  "blocks": [
+    { "type": "brand", "name": "Marca", "settings": [
+      { "type": "text", "id": "name", "label": "Nombre", "default": "Marca" }
+    ]}
+  ],
+  "presets": [{
+    "name": "Marcas",
+    "blocks": [
+      { "type": "brand", "settings": { "name": "Logitech" }},
+      { "type": "brand", "settings": { "name": "HP" }},
+      { "type": "brand", "settings": { "name": "Lenovo" }},
+      { "type": "brand", "settings": { "name": "Samsung" }},
+      { "type": "brand", "settings": { "name": "Xiaomi" }},
+      { "type": "brand", "settings": { "name": "JBL" }},
+      { "type": "brand", "settings": { "name": "ASUS" }},
+      { "type": "brand", "settings": { "name": "MSI" }},
+      { "type": "brand", "settings": { "name": "Sony" }}
+    ]
+  }]
+}
+{% endschema %}

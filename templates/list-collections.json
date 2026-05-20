@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-home",
+      "settings": {
+        "headline": "Todas las categorías",
+        "subheadline": "Explora tecnología, gaming, audio, accesorios y más.",
+        "cta_primary_label": "Ver ofertas"
+      }
+    },
+    "categories": { "type": "featured-categories", "settings": { "title": "Categorías" } }
+  },
+  "order": ["hero", "categories"]
+}

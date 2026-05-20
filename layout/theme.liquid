@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="{{ settings.color_dark | default: '#0F172A' }}">
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; {{ 'general.search' | t }}{% endif -%}
+    {%- if current_page != 1 %} &ndash; Página {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- comment -%} Open Graph {%- endcomment -%}
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:title" content="{{ page_title | escape }}">
+  <meta property="og:type" content="{% if request.page_type == 'product' %}product{% else %}website{% endif %}">
+  {% if page_description %}
+    <meta property="og:description" content="{{ page_description | escape }}">
+  {% endif %}
+  {% if settings.logo %}
+    <meta property="og:image" content="{{ settings.logo | image_url: width: 1200 }}">
+  {% endif %}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  {{ content_for_header }}
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <style>
+    :root {
+      --nt-electric: {{ settings.color_electric | default: '#0066FF' }};
+      --nt-royal: {{ settings.color_royal | default: '#1E3A8A' }};
+      --nt-dark: {{ settings.color_dark | default: '#0F172A' }};
+    }
+  </style>
+
+  {%- if request.page_type == 'product' -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "description": {{ product.description | strip_html | truncate: 500 | json }},
+      "image": {{ product.featured_image | image_url: width: 1200 | json }},
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+      "brand": { "@type": "Brand", "name": {{ product.vendor | json }} },
+      "offers": {
+        "@type": "Offer",
+        "url": {{ shop.url | append: product.url | json }},
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 | json }},
+        "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"
+      }
+    }
+    </script>
+  {%- endif -%}
+
+  {%- if request.page_type == 'index' -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "NANOTRONICS",
+      "description": "Tienda de tecnología, electrónica y accesorios en El Carmen de Viboral, Antioquia",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "El Carmen de Viboral",
+        "addressRegion": "Antioquia",
+        "addressCountry": "CO"
+      },
+      "url": {{ shop.url | json }}
+    }
+    </script>
+  {%- endif -%}
+</head>
+<body class="template-{{ request.page_type }}">
+  <a class="visually-hidden" href="#main-content">{{ 'accessibility.skip_to_content' | t }}</a>
+
+  {% sections 'header-group' %}
+
+  <main id="main-content" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% sections 'footer-group' %}
+
+  {% render 'whatsapp-float' %}
+  {% render 'mobile-nav-bar' %}
+
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+</body>
+</html>
