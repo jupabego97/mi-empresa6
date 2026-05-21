@@ -15,10 +15,14 @@
     "buy_now": "Comprar ahora",
     "quick_add": "Agregar rápido",
     "out_of_stock": "Agotado",
-    "in_stock": "En stock",
+    "in_stock": "Disponible",
     "low_stock": "¡Últimas unidades!",
+    "new_badge": "Nuevo",
+    "units_left": "quedan",
     "free_shipping": "Envíos a toda Colombia",
+    "free_shipping_promo": "Envíos a toda Colombia",
     "physical_store": "Tienda física en Viboral",
+    "physical_store_in": "Tienda física en",
     "warranty": "Garantía real",
     "secure_payment": "Pagos seguros",
     "personal_advice": "Asesoría personalizada",
@@ -31,33 +35,120 @@
     "compare": "Comparar",
     "subtotal": "Subtotal",
     "shipping": "Envío",
+    "shipping_at_checkout": "Se calcula al pagar",
     "total": "Total",
     "continue_shopping": "Seguir comprando",
     "checkout": "Finalizar compra",
     "empty_cart": "Tu carrito está vacío",
-    "trust_local": "Confianza del oriente antioqueño"
+    "trust_local": "La confianza del Oriente Antioqueño",
+    "cart_title": "Tu carrito",
+    "summary": "Resumen",
+    "remove": "Eliminar",
+    "update_cart": "Actualizar carrito",
+    "upsell_title": "También te puede interesar",
+    "secure_footer": "Pagos seguros · Garantía NANOTRONICS",
+    "view_all": "Ver todos",
+    "home": "Inicio",
+    "filters": "Filtros",
+    "products_count": "productos",
+    "no_products": "No hay productos en esta colección.",
+    "page_of": "Página",
+    "of": "de",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "price": "Precio",
+    "brand": "Marca"
   },
   "home": {
     "hero_headline": "Tecnología que impulsa tu rendimiento",
     "hero_subheadline": "Portátiles, celulares, audio, gaming, accesorios, servicio técnico y mucho más.",
-    "hero_secondary": "Todo lo que necesitas en tecnología y electrónica"
+    "hero_secondary": "Todo lo que necesitas en tecnología y electrónica",
+    "hero_eyebrow": "NANOTRONICS · Viboral, Antioquia",
+    "cta_whatsapp": "Hablar por WhatsApp"
   },
   "product": {
     "guarantee": "Garantía oficial",
     "shipping_info": "Envío a toda Colombia",
     "ask_whatsapp": "Consultar por WhatsApp",
-    "zoom_hint": "Pasa el cursor para ampliar"
+    "zoom_hint": "Pasa el cursor para ampliar",
+    "reviews_count": "opiniones",
+    "view_image": "Ver imagen",
+    "faq_warranty_q": "¿Cuál es la garantía?",
+    "faq_warranty_a": "Todos nuestros productos incluyen garantía oficial del fabricante. NANOTRONICS respalda cada venta.",
+    "faq_shipping_q": "¿Hacen envíos a toda Colombia?",
+    "faq_shipping_a": "Sí, enviamos a todo el país con transportadoras confiables.",
+    "reviews_placeholder": "Las opiniones de clientes aparecerán aquí cuando actives una app de reseñas en Shopify.",
+    "spec_sku": "SKU",
+    "spec_weight": "Peso",
+    "spec_brand": "Marca",
+    "spec_type": "Tipo"
   },
   "service": {
     "title": "Servicio técnico profesional",
     "cta": "Solicitar diagnóstico",
     "repair": "Reparación de computadores",
-    "upgrade": "Upgrades y SSD",
-    "maintenance": "Mantenimiento preventivo"
+    "upgrade": "Mejoras y SSD",
+    "maintenance": "Mantenimiento preventivo",
+    "banner_title": "Tu equipo en las mejores manos",
+    "know_services": "Conocer servicios",
+    "diagnosis_free": "Diagnóstico sin compromiso"
+  },
+  "search": {
+    "title": "Buscar productos",
+    "title_with_terms": "Resultados para",
+    "results_count": "resultados",
+    "no_results": "No encontramos productos.",
+    "view_categories": "Ver categorías",
+    "help_whatsapp": "Ayuda por WhatsApp"
+  },
+  "collection": {
+    "sort_featured": "Destacados",
+    "sort_price_asc": "Precio: menor a mayor",
+    "sort_price_desc": "Precio: mayor a menor",
+    "sort_newest": "Más recientes"
+  },
+  "footer": {
+    "tagline": "La tienda tecnológica más confiable del oriente antioqueño. Tecnología, gaming, audio, accesorios y servicio técnico profesional.",
+    "shop": "Comprar",
+    "company": "Empresa",
+    "about": "Nosotros",
+    "help": "Ayuda",
+    "all_products": "Todos los productos",
+    "faq_link": "Preguntas frecuentes",
+    "contact": "Contacto",
+    "shipping_policy": "Envíos",
+    "warranty_policy": "Garantías"
+  },
+  "whatsapp": {
+    "chat_title": "Chatea con NANOTRONICS",
+    "cart_message": "Hola, tengo productos en mi carrito y quiero finalizar la compra",
+    "diagnosis_message": "Hola NANOTRONICS, quiero solicitar un diagnóstico técnico",
+    "contact_message": "Escríbenos por WhatsApp",
+    "product_message_prefix": "Hola NANOTRONICS, me interesa:"
+  },
+  "js": {
+    "adding": "Agregando...",
+    "add_fallback": "Agregar"
   },
   "accessibility": {
     "skip_to_content": "Ir al contenido",
     "menu": "Menú",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "main_nav": "Principal",
+    "mobile_nav": "Navegación móvil",
+    "pagination": "Paginación",
+    "hero": "Hero principal",
+    "filters": "Filtros"
+  },
+  "sections": {
+    "featured_title": "Productos destacados",
+    "featured_subtitle": "Ofertas seleccionadas para ti",
+    "categories_title": "Explora por categoría",
+    "categories_subtitle": "Encuentra lo que necesitas en segundos",
+    "view_products_arrow": "Ver productos",
+    "gaming_label": "Gaming",
+    "audio_label": "Audio y TV",
+    "brands_title": "Marcas que confiamos",
+    "testimonials_title": "Lo que dicen nuestros clientes"
   }
 }

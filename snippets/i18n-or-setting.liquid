@@ -1,0 +1,10 @@
+{% doc %}
+@param {string} value - Valor del setting del tema (puede estar vacío)
+@param {string} locale_key - Clave de traducción (ej: home.hero_headline)
+Muestra el setting si tiene contenido; si no, la traducción del locale.
+{% enddoc %}
+{%- if value != blank -%}
+  {{- value -}}
+{%- else -%}
+  {{- locale_key | t -}}
+{%- endif -%}

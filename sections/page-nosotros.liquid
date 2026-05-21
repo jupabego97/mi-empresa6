@@ -1,8 +1,8 @@
 <section class="nt-hero" style="min-height:280px">
   <div class="nt-container" style="padding:3rem 0">
-    <p class="nt-hero__eyebrow">Nosotros</p>
+    <p class="nt-hero__eyebrow">{{ 'footer.about' | t }}</p>
     <h1 class="nt-hero__title">NANOTRONICS</h1>
-    <p class="nt-hero__subtitle">La tienda tecnológica de confianza en El Carmen de Viboral y el oriente antioqueño.</p>
+    <p class="nt-hero__subtitle">{{ 'footer.tagline' | t }}</p>
   </div>
 </section>
 
@@ -36,7 +36,7 @@
     <h2 class="nt-heading">Visítanos</h2>
     <p class="nt-subheading" style="margin:1rem auto 2rem">📍 {{ settings.store_address }}</p>
     <p>{{ settings.store_hours }} · {{ settings.store_phone }}</p>
-    {% render 'whatsapp-link', label: 'Escríbenos por WhatsApp' %}
+    {% render 'whatsapp-link', label: 'whatsapp.contact_message' | t %}
   </div>
 </section>
 

@@ -60,10 +60,11 @@
     if (btn) {
       btn.disabled = true;
       btn.dataset.originalText = btn.textContent;
-      btn.textContent = 'Agregando...';
+      const i18n = window.NT_I18N || {};
+      btn.textContent = i18n.adding || 'Agregando...';
       setTimeout(() => {
         btn.disabled = false;
-        btn.textContent = btn.dataset.originalText || 'Agregar';
+        btn.textContent = btn.dataset.originalText || i18n.addFallback || i18n.add || 'Agregar';
       }, 1500);
     }
   });

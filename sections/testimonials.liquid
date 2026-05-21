@@ -1,8 +1,8 @@
 <section class="nt-section nt-section--gray">
   <div class="nt-container">
     <div class="nt-section-header nt-section-header--center">
-      <h2 class="nt-heading">{{ section.settings.title | default: 'Lo que dicen nuestros clientes' }}</h2>
-      <p class="nt-subheading">{{ section.settings.subtitle | default: 'general.trust_local' | t }}</p>
+      <h2 class="nt-heading">{% render 'i18n-or-setting', value: section.settings.title, locale_key: 'sections.testimonials_title' %}</h2>
+      <p class="nt-subheading">{% render 'i18n-or-setting', value: section.settings.subtitle, locale_key: 'general.trust_local' %}</p>
     </div>
     <div class="nt-grid nt-grid--3">
       {% for block in section.blocks %}
@@ -34,10 +34,10 @@
   "tag": "section",
   "settings": [
     { "type": "text", "id": "title", "default": "Lo que dicen nuestros clientes" },
-    { "type": "text", "id": "subtitle", "default": "Confianza del oriente antioqueño" }
+    { "type": "text", "id": "subtitle", "default": "La confianza del Oriente Antioqueño" }
   ],
   "blocks": [
-    { "type": "review", "name": "Review", "settings": [
+    { "type": "review", "name": "Opinión", "settings": [
       { "type": "textarea", "id": "quote", "label": "Testimonio", "default": "Excelente servicio y productos originales. La mejor tienda de tecnología de la zona." },
       { "type": "text", "id": "name", "label": "Nombre", "default": "Cliente verificado" },
       { "type": "text", "id": "location", "label": "Ubicación" },
@@ -47,7 +47,7 @@
   "presets": [{
     "name": "Testimonios",
     "blocks": [
-      { "type": "review", "settings": { "quote": "Compré mi portátil gamer aquí. Asesoría top y garantía real. 100% recomendados.", "name": "Andrés M.", "location": "Rionegro" }},
+      { "type": "review", "settings": { "quote": "Compré mi portátil gamer aquí. Asesoría excelente y garantía real. 100% recomendados.", "name": "Andrés M.", "location": "Rionegro" }},
       { "type": "review", "settings": { "quote": "Repararon mi PC en el día. Técnicos serios y precios justos.", "name": "Laura P.", "location": "Viboral" }},
       { "type": "review", "settings": { "quote": "Siempre encuentro lo que busco. Envío rápido y atención por WhatsApp excelente.", "name": "Carlos R.", "location": "Marinilla" }}
     ]

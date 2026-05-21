@@ -1,7 +1,7 @@
 <section class="nt-section">
   <div class="nt-container">
     <div class="nt-section-header nt-section-header--center">
-      <h2 class="nt-heading" style="font-size:1.5rem">{{ section.settings.title | default: 'Marcas que confiamos' }}</h2>
+      <h2 class="nt-heading" style="font-size:1.5rem">{% render 'i18n-or-setting', value: section.settings.title, locale_key: 'sections.brands_title' %}</h2>
     </div>
     <div class="nt-brands">
       {% for block in section.blocks %}
@@ -15,6 +15,9 @@
 {
   "name": "Marcas",
   "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Marcas que confiamos" }
+  ],
   "blocks": [
     { "type": "brand", "name": "Marca", "settings": [
       { "type": "text", "id": "name", "label": "Nombre", "default": "Marca" }

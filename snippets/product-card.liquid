@@ -28,7 +28,7 @@ Card premium con CRO: descuento, cuotas, stock, quick add.
         <span class="nt-badge nt-badge--sale">-{{ discount_pct }}%</span>
       {% endif %}
       {% if product.tags contains 'nuevo' %}
-        <span class="nt-badge nt-badge--new">Nuevo</span>
+        <span class="nt-badge nt-badge--new">{{ 'general.new_badge' | t }}</span>
       {% endif %}
     </div>
     {% if product.available %}
@@ -55,7 +55,7 @@ Card premium con CRO: descuento, cuotas, stock, quick add.
     {% endif %}
     {% if product.available %}
       {% if current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 5 and settings.show_stock_urgency %}
-        <p class="nt-product-card__stock nt-product-card__stock--low">{{ 'general.low_stock' | t }} ({{ current_variant.inventory_quantity }})</p>
+        <p class="nt-product-card__stock nt-product-card__stock--low">{{ 'general.low_stock' | t }} ({{ current_variant.inventory_quantity }} {{ 'general.units_left' | t }})</p>
       {% else %}
         <p class="nt-product-card__stock">{{ 'general.in_stock' | t }}</p>
       {% endif %}

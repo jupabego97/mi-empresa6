@@ -8,7 +8,7 @@
         "eyebrow": "Marcas"
       }
     },
-    "brands": { "type": "brands-carousel", "settings": { "title": "Nuestros partners" } },
+    "brands": { "type": "brands-carousel", "settings": { "title": "Marcas que distribuimos" } },
     "content": { "type": "page-content", "settings": {} }
   },
   "order": ["hero", "brands", "content"]

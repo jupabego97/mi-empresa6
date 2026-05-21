@@ -2,16 +2,16 @@
   <div class="nt-container">
     <div class="nt-feature-banner">
       <div class="nt-feature-banner__content">
-        <span class="nt-feature-banner__label">Gaming</span>
-        <h2 class="nt-feature-banner__title">{{ section.settings.title | default: 'Domina cada partida' }}</h2>
+        <span class="nt-feature-banner__label">{{ 'sections.gaming_label' | t }}</span>
+        <h2 class="nt-feature-banner__title">{{ section.settings.title }}</h2>
         <p style="color:var(--nt-gray-300);margin-bottom:1.5rem;line-height:1.7">{{ section.settings.text }}</p>
-        <a href="{{ section.settings.url | default: routes.collections_url }}" class="nt-btn nt-btn--primary">{{ section.settings.cta | default: 'Ver gaming' }}</a>
+        <a href="{{ section.settings.url | default: routes.collections_url }}" class="nt-btn nt-btn--primary">{{ section.settings.cta }}</a>
       </div>
       <div class="nt-feature-banner__media">
         {% if section.settings.image %}
-          <img src="{{ section.settings.image | image_url: width: 900 }}" alt="Gaming NANOTRONICS" loading="lazy" width="900" height="600">
+          <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ 'sections.gaming_label' | t }}" loading="lazy" width="900" height="600">
         {% else %}
-          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&q=80&auto=format" alt="Setup gamer RGB" loading="lazy" width="900" height="600">
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&q=80&auto=format" alt="Setup gamer" loading="lazy" width="900" height="600">
         {% endif %}
       </div>
     </div>
@@ -27,16 +27,16 @@
 
 {% schema %}
 {
-  "name": "Sección Gaming",
+  "name": "Sección gaming",
   "tag": "section",
   "settings": [
     { "type": "text", "id": "title", "label": "Título", "default": "Domina cada partida" },
-    { "type": "textarea", "id": "text", "label": "Texto", "default": "Teclados RGB, mouse gamer, headsets, consolas y controles. Todo para tu setup premium." },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Teclados RGB, mouse gamer, audífonos gamer, consolas y controles. Todo para tu setup premium." },
     { "type": "url", "id": "url", "label": "Enlace" },
-    { "type": "text", "id": "cta", "label": "CTA", "default": "Ver gaming" },
+    { "type": "text", "id": "cta", "label": "Botón de acción", "default": "Ver gaming" },
     { "type": "image_picker", "id": "image", "label": "Imagen" },
     { "type": "collection", "id": "collection", "label": "Colección gaming" }
   ],
-  "presets": [{ "name": "Sección Gaming" }]
+  "presets": [{ "name": "Sección gaming" }]
 }
 {% endschema %}

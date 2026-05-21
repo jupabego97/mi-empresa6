@@ -1,14 +1,15 @@
-<section class="nt-hero" aria-label="Hero principal">
+<section class="nt-hero" aria-label="{{ 'accessibility.hero' | t }}">
   <div class="nt-container nt-hero__grid">
     <div>
-      <p class="nt-hero__eyebrow">{{ section.settings.eyebrow | default: 'NANOTRONICS · Viboral, Antioquia' }}</p>
-      <h1 class="nt-hero__title">{{ section.settings.headline | default: 'home.hero_headline' | t }}</h1>
-      <p class="nt-hero__subtitle">{{ section.settings.subheadline | default: 'home.hero_subheadline' | t }}</p>
+      <p class="nt-hero__eyebrow">{% render 'i18n-or-setting', value: section.settings.eyebrow, locale_key: 'home.hero_eyebrow' %}</p>
+      <h1 class="nt-hero__title">{% render 'i18n-or-setting', value: section.settings.headline, locale_key: 'home.hero_headline' %}</h1>
+      <p class="nt-hero__subtitle">{% render 'i18n-or-setting', value: section.settings.subheadline, locale_key: 'home.hero_subheadline' %}</p>
       <div class="nt-hero__ctas">
         <a href="{{ section.settings.cta_primary_url | default: routes.collections_url }}" class="nt-btn nt-btn--primary nt-btn--lg">
-          {{ section.settings.cta_primary_label | default: 'general.view_products' | t }}
+          {% render 'i18n-or-setting', value: section.settings.cta_primary_label, locale_key: 'general.view_products' %}
         </a>
-        {% render 'whatsapp-link', class: 'nt-btn--lg', label: section.settings.cta_whatsapp_label %}
+        {% assign wa_label = section.settings.cta_whatsapp_label %}
+        {% render 'whatsapp-link', class: 'nt-btn--lg', label: wa_label %}
       </div>
     </div>
     <div class="nt-hero__visual">
@@ -30,18 +31,18 @@
 
 {% schema %}
 {
-  "name": "Hero Home",
+  "name": "Hero inicio",
   "tag": "section",
   "class": "section-hero",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "NANOTRONICS · Viboral, Antioquia" },
+    { "type": "text", "id": "eyebrow", "label": "Texto superior", "default": "NANOTRONICS · Viboral, Antioquia" },
     { "type": "text", "id": "headline", "label": "Título", "default": "Tecnología que impulsa tu rendimiento" },
     { "type": "textarea", "id": "subheadline", "label": "Subtítulo", "default": "Portátiles, celulares, audio, gaming, accesorios, servicio técnico y mucho más." },
     { "type": "image_picker", "id": "image", "label": "Imagen hero (setup gamer)" },
-    { "type": "url", "id": "cta_primary_url", "label": "URL CTA principal" },
-    { "type": "text", "id": "cta_primary_label", "label": "Texto CTA", "default": "Ver productos" },
+    { "type": "url", "id": "cta_primary_url", "label": "URL botón principal" },
+    { "type": "text", "id": "cta_primary_label", "label": "Texto botón principal", "default": "Ver productos" },
     { "type": "text", "id": "cta_whatsapp_label", "label": "Texto WhatsApp", "default": "Hablar por WhatsApp" }
   ],
-  "presets": [{ "name": "Hero Home" }]
+  "presets": [{ "name": "Hero inicio" }]
 }
 {% endschema %}

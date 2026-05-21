@@ -1,6 +1,6 @@
 {
   "type": "footer",
-  "name": "Footer group",
+  "name": "Grupo pie de página",
   "sections": {
     "footer": {
       "type": "footer",

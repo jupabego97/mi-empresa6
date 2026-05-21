@@ -99,6 +99,13 @@
   {% render 'whatsapp-float' %}
   {% render 'mobile-nav-bar' %}
 
+  <script>
+    window.NT_I18N = {
+      adding: {{ 'js.adding' | t | json }},
+      add: {{ 'general.quick_add' | t | json }},
+      addFallback: {{ 'js.add_fallback' | t | json }}
+    };
+  </script>
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
 </body>
 </html>

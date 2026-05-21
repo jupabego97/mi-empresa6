@@ -139,7 +139,7 @@
       {
         "type": "checkbox",
         "id": "sticky_add_to_cart_mobile",
-        "label": "Sticky Add to Cart en móvil",
+        "label": "Botón fijo agregar al carrito en móvil",
         "default": true
       }
     ]

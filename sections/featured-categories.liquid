@@ -1,8 +1,8 @@
 <section class="nt-section">
   <div class="nt-container">
     <div class="nt-section-header">
-      <h2 class="nt-heading">{{ section.settings.title | default: 'Explora por categoría' }}</h2>
-      <p class="nt-subheading">{{ section.settings.subtitle }}</p>
+      <h2 class="nt-heading">{% render 'i18n-or-setting', value: section.settings.title, locale_key: 'sections.categories_title' %}</h2>
+      <p class="nt-subheading">{% render 'i18n-or-setting', value: section.settings.subtitle, locale_key: 'sections.categories_subtitle' %}</p>
     </div>
     <div class="nt-grid nt-grid--4">
       {% for block in section.blocks %}
@@ -37,7 +37,7 @@
       { "type": "text", "id": "title", "label": "Nombre", "default": "Categoría" },
       { "type": "url", "id": "url", "label": "Enlace" },
       { "type": "image_picker", "id": "image", "label": "Imagen" },
-      { "type": "text", "id": "count", "label": "Contador opcional", "default": "Ver productos →" }
+      { "type": "text", "id": "count", "label": "Texto secundario", "default": "Ver productos →" }
     ]}
   ],
   "presets": [{

@@ -1,6 +1,6 @@
 <section class="nt-container nt-cart">
   <div>
-    <h1 class="nt-heading" style="font-size:1.75rem;margin-bottom:2rem">Tu carrito</h1>
+    <h1 class="nt-heading" style="font-size:1.75rem;margin-bottom:2rem">{{ 'general.cart_title' | t }}</h1>
 
     {% if cart.item_count > 0 %}
       <form action="{{ routes.cart_url }}" method="post">
@@ -18,16 +18,16 @@
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem">
               <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:64px;padding:0.5rem;border:1px solid var(--nt-gray-200);border-radius:8px;text-align:center">
-              <a href="{{ item.url_to_remove }}" style="font-size:0.75rem;color:var(--nt-danger)">Eliminar</a>
+              <a href="{{ item.url_to_remove }}" style="font-size:0.75rem;color:var(--nt-danger)">{{ 'general.remove' | t }}</a>
             </div>
             <input type="hidden" name="id" value="{{ item.variant.id }}">
           </div>
         {% endfor %}
-        <button type="submit" name="update" class="nt-btn nt-btn--secondary">Actualizar carrito</button>
+        <button type="submit" name="update" class="nt-btn nt-btn--secondary">{{ 'general.update_cart' | t }}</button>
       </form>
 
       <div style="margin-top:2.5rem">
-        <h2 style="font-size:1.125rem;font-weight:800;margin-bottom:1rem">También te puede interesar</h2>
+        <h2 style="font-size:1.125rem;font-weight:800;margin-bottom:1rem">{{ 'general.upsell_title' | t }}</h2>
         <div class="nt-grid nt-grid--3">
           {% for product in collections.all.products limit: 3 %}
             {% render 'product-card', product: product %}
@@ -44,14 +44,14 @@
 
   {% if cart.item_count > 0 %}
     <aside class="nt-cart__summary">
-      <h2 style="font-size:1.125rem;font-weight:800;margin-bottom:1.5rem">Resumen</h2>
+      <h2 style="font-size:1.125rem;font-weight:800;margin-bottom:1.5rem">{{ 'general.summary' | t }}</h2>
       <div style="display:flex;justify-content:space-between;margin-bottom:0.75rem;font-size:0.9375rem">
         <span>{{ 'general.subtotal' | t }}</span>
         <span>{{ cart.total_price | money }}</span>
       </div>
       <div style="display:flex;justify-content:space-between;margin-bottom:0.75rem;font-size:0.875rem;color:var(--nt-gray-500)">
         <span>{{ 'general.shipping' | t }}</span>
-        <span>Calculado en checkout</span>
+        <span>{{ 'general.shipping_at_checkout' | t }}</span>
       </div>
       {% if settings.show_installments %}
         <p style="font-size:0.8125rem;color:var(--nt-electric);margin-bottom:1.5rem">{{ settings.installments_text }}</p>
@@ -62,9 +62,9 @@
         <span>{{ cart.total_price | money }}</span>
       </div>
       <a href="{{ routes.cart_url }}" class="nt-btn nt-btn--primary nt-btn--full nt-btn--lg">{{ 'general.checkout' | t }}</a>
-      {% assign cart_wa = 'Hola, tengo productos en mi carrito y quiero finalizar la compra' %}
-      {% render 'whatsapp-link', message: cart_wa, class: 'nt-btn--full', label: 'Consultar por WhatsApp' %}
-      <p style="font-size:0.75rem;color:var(--nt-gray-500);text-align:center;margin-top:1rem">🔒 Pagos seguros · Garantía NANOTRONICS</p>
+      {% assign cart_wa = 'whatsapp.cart_message' | t %}
+      {% render 'whatsapp-link', message: cart_wa, class: 'nt-btn--full', label: 'product.ask_whatsapp' | t %}
+      <p style="font-size:0.75rem;color:var(--nt-gray-500);text-align:center;margin-top:1rem">{{ 'general.secure_footer' | t }}</p>
     </aside>
   {% endif %}
 </section>

@@ -1,9 +1,9 @@
 <section class="nt-container nt-collection">
-  <aside class="nt-filters" data-nt-filters aria-label="Filtros">
-    <h2 style="font-size:1rem;font-weight:800;margin-bottom:1.5rem">Filtros</h2>
+  <aside class="nt-filters" data-nt-filters aria-label="{{ 'accessibility.filters' | t }}">
+    <h2 style="font-size:1rem;font-weight:800;margin-bottom:1.5rem">{{ 'general.filters' | t }}</h2>
 
     <div class="nt-filter-group">
-      <h3 class="nt-filter-group__title">Precio</h3>
+      <h3 class="nt-filter-group__title">{{ 'general.price' | t }}</h3>
       <form>
         <input type="number" placeholder="Mín" style="width:100%;padding:0.5rem;margin-bottom:0.5rem;border:1px solid var(--nt-gray-200);border-radius:8px">
         <input type="number" placeholder="Máx" style="width:100%;padding:0.5rem;border:1px solid var(--nt-gray-200);border-radius:8px">
@@ -12,7 +12,7 @@
 
     {% if collection.all_vendors.size > 0 %}
       <div class="nt-filter-group">
-        <h3 class="nt-filter-group__title">Marca</h3>
+        <h3 class="nt-filter-group__title">{{ 'general.brand' | t }}</h3>
         {% for vendor in collection.all_vendors %}
           <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;padding:0.25rem 0;cursor:pointer">
             <input type="checkbox"> {{ vendor }}
@@ -44,15 +44,15 @@
         {% if collection.description != blank %}
           <p class="nt-subheading" style="margin-top:0.5rem">{{ collection.description }}</p>
         {% endif %}
-        <p style="font-size:0.875rem;color:var(--nt-gray-500);margin-top:0.5rem">{{ collection.products_count }} productos</p>
+        <p style="font-size:0.875rem;color:var(--nt-gray-500);margin-top:0.5rem">{{ collection.products_count }} {{ 'general.products_count' | t }}</p>
       </div>
       <div style="display:flex;gap:0.75rem;align-items:center">
-        <button type="button" class="nt-btn nt-btn--secondary nt-btn--sm" data-nt-filter-toggle>Filtros</button>
+        <button type="button" class="nt-btn nt-btn--secondary nt-btn--sm" data-nt-filter-toggle>{{ 'general.filters' | t }}</button>
         <select style="padding:0.5rem 1rem;border:1px solid var(--nt-gray-200);border-radius:8px;font-size:0.875rem">
-          <option>Destacados</option>
-          <option>Precio: menor a mayor</option>
-          <option>Precio: mayor a menor</option>
-          <option>Más recientes</option>
+          <option>{{ 'collection.sort_featured' | t }}</option>
+          <option>{{ 'collection.sort_price_asc' | t }}</option>
+          <option>{{ 'collection.sort_price_desc' | t }}</option>
+          <option>{{ 'collection.sort_newest' | t }}</option>
         </select>
       </div>
     </header>
@@ -62,17 +62,17 @@
         {% for product in collection.products %}
           {% render 'product-card', product: product %}
         {% else %}
-          <p style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--nt-gray-500)">No hay productos en esta colección.</p>
+          <p style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--nt-gray-500)">{{ 'general.no_products' | t }}</p>
         {% endfor %}
       </div>
       {% if paginate.pages > 1 %}
-        <nav style="display:flex;justify-content:center;gap:0.5rem;margin-top:2.5rem" aria-label="Paginación">
+        <nav style="display:flex;justify-content:center;gap:0.5rem;margin-top:2.5rem" aria-label="{{ 'accessibility.pagination' | t }}">
           {% if paginate.previous %}
-            <a href="{{ paginate.previous.url }}" class="nt-btn nt-btn--secondary nt-btn--sm">← Anterior</a>
+            <a href="{{ paginate.previous.url }}" class="nt-btn nt-btn--secondary nt-btn--sm">← {{ 'general.previous' | t }}</a>
           {% endif %}
-          <span style="padding:0.5rem 1rem;font-size:0.875rem">Página {{ paginate.current_page }} de {{ paginate.pages }}</span>
+          <span style="padding:0.5rem 1rem;font-size:0.875rem">{{ 'general.page_of' | t }} {{ paginate.current_page }} {{ 'general.of' | t }} {{ paginate.pages }}</span>
           {% if paginate.next %}
-            <a href="{{ paginate.next.url }}" class="nt-btn nt-btn--secondary nt-btn--sm">Siguiente →</a>
+            <a href="{{ paginate.next.url }}" class="nt-btn nt-btn--secondary nt-btn--sm">{{ 'general.next' | t }} →</a>
           {% endif %}
         </nav>
       {% endif %}

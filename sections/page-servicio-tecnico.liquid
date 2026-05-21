@@ -1,10 +1,10 @@
 <section class="nt-hero" style="min-height:320px">
   <div class="nt-container" style="padding:3rem 0;text-align:center">
-    <p class="nt-hero__eyebrow">Servicio técnico profesional</p>
-    <h1 class="nt-hero__title" style="max-width:640px;margin:0 auto 1rem">Reparación, upgrades y mantenimiento</h1>
+    <p class="nt-hero__eyebrow">{{ 'general.technical_service' | t }}</p>
+    <h1 class="nt-hero__title" style="max-width:640px;margin:0 auto 1rem">{{ 'service.title' | t }}</h1>
     <p class="nt-hero__subtitle" style="margin:0 auto 2rem">Taller real en El Carmen de Viboral. Técnicos certificados y diagnóstico honesto.</p>
-    {% assign diag = 'Hola NANOTRONICS, quiero solicitar un diagnóstico' %}
-    {% render 'whatsapp-link', message: diag, class: 'nt-btn--lg', label: 'Solicitar diagnóstico' %}
+    {% assign diag = 'whatsapp.diagnosis_message' | t %}
+    {% render 'whatsapp-link', message: diag, class: 'nt-btn--lg', label: 'service.cta' | t %}
   </div>
 </section>
 
@@ -57,8 +57,8 @@
   "presets": [{
     "name": "Servicio técnico",
     "blocks": [
-      { "type": "service", "settings": { "icon": "💻", "title": "Reparación PC", "text": "Diagnóstico y reparación de computadores y portátiles." }},
-      { "type": "service", "settings": { "icon": "⚡", "title": "Upgrades SSD/RAM", "text": "Mejora el rendimiento de tu equipo al instante." }},
+      { "type": "service", "settings": { "icon": "💻", "title": "Reparación de PC", "text": "Diagnóstico y reparación de computadores y portátiles." }},
+      { "type": "service", "settings": { "icon": "⚡", "title": "Mejoras SSD/RAM", "text": "Mejora el rendimiento de tu equipo al instante." }},
       { "type": "service", "settings": { "icon": "🧹", "title": "Mantenimiento", "text": "Limpieza, pasta térmica y optimización." }},
       { "type": "service", "settings": { "icon": "🎮", "title": "Consolas", "text": "Reparación de consolas y controles." }},
       { "type": "service", "settings": { "icon": "🔍", "title": "Diagnóstico", "text": "Evaluación profesional sin costo oculto." }},

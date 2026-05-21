@@ -2,11 +2,11 @@
   <div class="nt-container">
     <div class="nt-section-header" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem">
       <div>
-        <h2 class="nt-heading">{{ section.settings.title | default: 'Productos destacados' }}</h2>
-        <p class="nt-subheading">{{ section.settings.subtitle | default: 'Ofertas seleccionadas para máxima conversión' }}</p>
+        <h2 class="nt-heading">{% render 'i18n-or-setting', value: section.settings.title, locale_key: 'sections.featured_title' %}</h2>
+        <p class="nt-subheading">{% render 'i18n-or-setting', value: section.settings.subtitle, locale_key: 'sections.featured_subtitle' %}</p>
       </div>
       {% if section.settings.collection != blank %}
-        <a href="{{ section.settings.collection.url }}" class="nt-btn nt-btn--secondary">Ver todos →</a>
+        <a href="{{ section.settings.collection.url }}" class="nt-btn nt-btn--secondary">{{ 'general.view_all' | t }} →</a>
       {% endif %}
     </div>
     <div class="nt-grid nt-grid--4">
@@ -36,7 +36,7 @@
   "tag": "section",
   "settings": [
     { "type": "text", "id": "title", "label": "Título", "default": "Productos destacados" },
-    { "type": "text", "id": "subtitle", "label": "Subtítulo" },
+    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Ofertas seleccionadas para ti" },
     { "type": "collection", "id": "collection", "label": "Colección" },
     { "type": "range", "id": "products_to_show", "min": 4, "max": 12, "step": 2, "default": 8, "label": "Productos a mostrar" }
   ],
