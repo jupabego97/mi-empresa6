@@ -1,72 +1,136 @@
-<section class="nt-container nt-cart">
-  <div>
-    <h1 class="nt-heading" style="font-size:1.75rem;margin-bottom:2rem">{{ 'general.cart_title' | t }}</h1>
+<section class="nt-section nt-section--gray nt-cart-page">
+  <div class="nt-container">
+    <header class="nt-cart-page__header">
+      <div>
+        <h1 class="nt-cart-page__title">{{ 'general.cart_title' | t }}</h1>
+        {% if cart.item_count > 0 %}
+          <p class="nt-cart-page__count">
+            {% if cart.item_count == 1 %}
+              {{ 'general.cart_items_count_one' | t }}
+            {% else %}
+              {{ cart.item_count }} {{ 'general.products_count' | t }}
+            {% endif %}
+          </p>
+        {% endif %}
+      </div>
+      <a href="{{ routes.collections_url }}" class="nt-btn nt-btn--secondary nt-btn--sm nt-cart-page__back">
+        ← {{ 'general.continue_shopping' | t }}
+      </a>
+    </header>
 
     {% if cart.item_count > 0 %}
-      <form action="{{ routes.cart_url }}" method="post">
-        {% for item in cart.items %}
-          <div class="nt-card" style="display:grid;grid-template-columns:100px 1fr auto;gap:1.25rem;padding:1.25rem;margin-bottom:1rem;align-items:center">
-            <a href="{{ item.url }}">
-              <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title }}" width="100" height="100" style="object-fit:contain;background:var(--nt-gray-50);border-radius:8px;padding:0.5rem">
-            </a>
-            <div>
-              <a href="{{ item.url }}" style="font-weight:700;font-size:0.9375rem">{{ item.product.title }}</a>
-              {% unless item.variant.title == 'Default Title' %}
-                <p style="font-size:0.8125rem;color:var(--nt-gray-500)">{{ item.variant.title }}</p>
-              {% endunless %}
-              <p style="font-weight:800;margin-top:0.5rem">{{ item.final_line_price | money }}</p>
+      <div class="nt-cart">
+        <div class="nt-cart__main">
+          <form action="{{ routes.cart_url }}" method="post" id="nt-cart-form" class="nt-cart__form">
+            <div class="nt-cart__items">
+              {% for item in cart.items %}
+                {% render 'cart-line-item', item: item %}
+              {% endfor %}
             </div>
-            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem">
-              <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:64px;padding:0.5rem;border:1px solid var(--nt-gray-200);border-radius:8px;text-align:center">
-              <a href="{{ item.url_to_remove }}" style="font-size:0.75rem;color:var(--nt-danger)">{{ 'general.remove' | t }}</a>
-            </div>
-            <input type="hidden" name="id" value="{{ item.variant.id }}">
-          </div>
-        {% endfor %}
-        <button type="submit" name="update" class="nt-btn nt-btn--secondary">{{ 'general.update_cart' | t }}</button>
-      </form>
 
-      <div style="margin-top:2.5rem">
-        <h2 style="font-size:1.125rem;font-weight:800;margin-bottom:1rem">{{ 'general.upsell_title' | t }}</h2>
-        <div class="nt-grid nt-grid--3">
-          {% for product in collections.all.products limit: 3 %}
-            {% render 'product-card', product: product %}
-          {% endfor %}
+            <div class="nt-cart__form-actions">
+              <button type="submit" name="update" class="nt-btn nt-btn--secondary">
+                {{ 'general.update_cart' | t }}
+              </button>
+            </div>
+          </form>
+
+          <div class="nt-cart__trust">
+            <div class="nt-cart__trust-item">
+              {% render 'icon', name: 'truck' %}
+              <span>{{ 'general.free_shipping' | t }}</span>
+            </div>
+            <div class="nt-cart__trust-item">
+              {% render 'icon', name: 'shield' %}
+              <span>{{ 'general.warranty' | t }}</span>
+            </div>
+            <div class="nt-cart__trust-item">
+              {% render 'icon', name: 'shield' %}
+              <span>{{ 'general.secure_payment' | t }}</span>
+            </div>
+          </div>
+
+          {% if section.settings.show_upsell %}
+            <div class="nt-cart__upsell">
+              <h2 class="nt-cart__upsell-title">{{ 'general.upsell_title' | t }}</h2>
+              <div class="nt-grid nt-grid--3">
+                {% assign upsell_collection = section.settings.upsell_collection %}
+                {% if upsell_collection != blank %}
+                  {% for product in upsell_collection.products limit: 3 %}
+                    {% render 'product-card', product: product %}
+                  {% endfor %}
+                {% else %}
+                  {% for product in collections.all.products limit: 3 %}
+                    {% render 'product-card', product: product %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <aside class="nt-cart__summary" aria-label="{{ 'general.summary' | t }}">
+          <div class="nt-cart__summary-card">
+            <h2 class="nt-cart__summary-title">{{ 'general.summary' | t }}</h2>
+
+            <dl class="nt-cart__summary-rows">
+              <div class="nt-cart__summary-row">
+                <dt>{{ 'general.subtotal' | t }}</dt>
+                <dd>{{ cart.total_price | money }}</dd>
+              </div>
+              <div class="nt-cart__summary-row nt-cart__summary-row--muted">
+                <dt>{{ 'general.shipping' | t }}</dt>
+                <dd>{{ 'general.shipping_at_checkout' | t }}</dd>
+              </div>
+            </dl>
+
+            {% if settings.show_installments %}
+              <p class="nt-cart__installments">{{ settings.installments_text }}</p>
+            {% endif %}
+
+            <div class="nt-cart__summary-total">
+              <span>{{ 'general.total' | t }}</span>
+              <strong>{{ cart.total_price | money }}</strong>
+            </div>
+
+            <div class="nt-cart__summary-actions">
+              <button type="submit" form="nt-cart-form" name="checkout" class="nt-btn nt-btn--primary nt-btn--lg nt-btn--full">
+                {{ 'general.checkout' | t }}
+              </button>
+              {% assign cart_wa = 'whatsapp.cart_message' | t %}
+              {% render 'whatsapp-link', message: cart_wa, class: 'nt-btn--full' %}
+            </div>
+
+            <p class="nt-cart__summary-note">{{ 'general.secure_footer' | t }}</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="nt-cart__mobile-bar" aria-hidden="true">
+        <div class="nt-cart__mobile-bar-inner">
+          <div>
+            <span class="nt-cart__mobile-label">{{ 'general.total' | t }}</span>
+            <strong class="nt-cart__mobile-total">{{ cart.total_price | money }}</strong>
+          </div>
+          <button type="submit" form="nt-cart-form" name="checkout" class="nt-btn nt-btn--primary">
+            {{ 'general.checkout' | t }}
+          </button>
         </div>
       </div>
     {% else %}
-      <div style="text-align:center;padding:4rem 2rem">
-        <p style="font-size:1.25rem;font-weight:700;margin-bottom:1rem">{{ 'general.empty_cart' | t }}</p>
-        <a href="{{ routes.collections_url }}" class="nt-btn nt-btn--primary">{{ 'general.continue_shopping' | t }}</a>
+      <div class="nt-cart-empty">
+        <div class="nt-cart-empty__icon" aria-hidden="true">
+          {% render 'icon', name: 'cart' %}
+        </div>
+        <h2 class="nt-cart-empty__title">{{ 'general.empty_cart' | t }}</h2>
+        <p class="nt-cart-empty__text">{{ 'general.empty_cart_hint' | t }}</p>
+        <div class="nt-cart-empty__actions">
+          <a href="{{ routes.collections_url }}" class="nt-btn nt-btn--primary nt-btn--lg">{{ 'general.view_products' | t }}</a>
+          {% render 'whatsapp-link', class: 'nt-btn--lg' %}
+        </div>
       </div>
     {% endif %}
   </div>
-
-  {% if cart.item_count > 0 %}
-    <aside class="nt-cart__summary">
-      <h2 style="font-size:1.125rem;font-weight:800;margin-bottom:1.5rem">{{ 'general.summary' | t }}</h2>
-      <div style="display:flex;justify-content:space-between;margin-bottom:0.75rem;font-size:0.9375rem">
-        <span>{{ 'general.subtotal' | t }}</span>
-        <span>{{ cart.total_price | money }}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:0.75rem;font-size:0.875rem;color:var(--nt-gray-500)">
-        <span>{{ 'general.shipping' | t }}</span>
-        <span>{{ 'general.shipping_at_checkout' | t }}</span>
-      </div>
-      {% if settings.show_installments %}
-        <p style="font-size:0.8125rem;color:var(--nt-electric);margin-bottom:1.5rem">{{ settings.installments_text }}</p>
-      {% endif %}
-      <hr style="border:none;border-top:1px solid var(--nt-gray-200);margin:1rem 0">
-      <div style="display:flex;justify-content:space-between;font-size:1.125rem;font-weight:800;margin-bottom:1.5rem">
-        <span>{{ 'general.total' | t }}</span>
-        <span>{{ cart.total_price | money }}</span>
-      </div>
-      <a href="{{ routes.cart_url }}" class="nt-btn nt-btn--primary nt-btn--full nt-btn--lg">{{ 'general.checkout' | t }}</a>
-      {% assign cart_wa = 'whatsapp.cart_message' | t %}
-      {% render 'whatsapp-link', message: cart_wa, class: 'nt-btn--full', label: 'product.ask_whatsapp' | t %}
-      <p style="font-size:0.75rem;color:var(--nt-gray-500);text-align:center;margin-top:1rem">{{ 'general.secure_footer' | t }}</p>
-    </aside>
-  {% endif %}
 </section>
 
 {% schema %}
@@ -74,6 +138,18 @@
   "name": "Carrito",
   "tag": "section",
   "class": "section-main-cart",
-  "settings": []
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_upsell",
+      "label": "Mostrar productos sugeridos",
+      "default": true
+    },
+    {
+      "type": "collection",
+      "id": "upsell_collection",
+      "label": "Colección para sugerencias"
+    }
+  ]
 }
 {% endschema %}

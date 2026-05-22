@@ -69,6 +69,21 @@
     }
   });
 
+  /* Cart quantity steppers */
+  qsa('[data-nt-qty]').forEach((wrap) => {
+    const input = wrap.querySelector('[data-nt-qty-input]');
+    const minus = wrap.querySelector('[data-nt-qty-minus]');
+    const plus = wrap.querySelector('[data-nt-qty-plus]');
+    if (!input || !minus || !plus) return;
+    minus.addEventListener('click', () => {
+      const v = parseInt(input.value, 10) || 0;
+      if (v > 0) input.value = v - 1;
+    });
+    plus.addEventListener('click', () => {
+      input.value = (parseInt(input.value, 10) || 0) + 1;
+    });
+  });
+
   /* Lazy reveal */
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(
