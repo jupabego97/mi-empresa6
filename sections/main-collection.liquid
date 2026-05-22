@@ -1,82 +1,69 @@
-<section class="nt-container nt-collection">
-  <aside class="nt-filters" data-nt-filters aria-label="{{ 'accessibility.filters' | t }}">
-    <h2 style="font-size:1rem;font-weight:800;margin-bottom:1.5rem">{{ 'general.filters' | t }}</h2>
+<section class="nt-section nt-section--gray">
+  <div class="nt-container">
+    {% render 'breadcrumbs' %}
 
-    <div class="nt-filter-group">
-      <h3 class="nt-filter-group__title">{{ 'general.price' | t }}</h3>
-      <form>
-        <input type="number" placeholder="Mín" style="width:100%;padding:0.5rem;margin-bottom:0.5rem;border:1px solid var(--nt-gray-200);border-radius:8px">
-        <input type="number" placeholder="Máx" style="width:100%;padding:0.5rem;border:1px solid var(--nt-gray-200);border-radius:8px">
-      </form>
-    </div>
+    <div class="nt-collection">
+      <aside class="nt-filters" data-nt-filters aria-label="{{ 'accessibility.filters' | t }}">
+        <div class="nt-filters__head">
+          <h2 class="nt-filters__title">{{ 'general.filters' | t }}</h2>
+          <button type="button" class="nt-filters__close" data-nt-filter-close aria-label="{{ 'accessibility.close' | t }}">×</button>
+        </div>
+        {% render 'collection-filters', collection: collection %}
+      </aside>
 
-    {% if collection.all_vendors.size > 0 %}
-      <div class="nt-filter-group">
-        <h3 class="nt-filter-group__title">{{ 'general.brand' | t }}</h3>
-        {% for vendor in collection.all_vendors %}
-          <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;padding:0.25rem 0;cursor:pointer">
-            <input type="checkbox"> {{ vendor }}
-          </label>
-        {% endfor %}
-      </div>
-    {% endif %}
+      <div class="nt-collection__main">
+        <header class="nt-collection__header">
+          <div>
+            <h1 class="nt-collection__title">{{ collection.title }}</h1>
+            {% if collection.description != blank %}
+              <p class="nt-collection__desc">{{ collection.description }}</p>
+            {% endif %}
+            <p class="nt-collection__count">{{ collection.products_count }} {{ 'general.products_count' | t }}</p>
+          </div>
+          <div class="nt-collection__toolbar">
+            <button type="button" class="nt-btn nt-btn--secondary nt-btn--sm" data-nt-filter-toggle>{{ 'general.filters' | t }}</button>
+            <form class="nt-collection__sort" method="get">
+              {% for filter in collection.filters %}
+                {% for value in filter.active_values %}
+                  <input type="hidden" name="{{ value.param_name }}" value="{{ value.value }}">
+                {% endfor %}
+              {% endfor %}
+              <label class="visually-hidden" for="SortBy">{{ 'collection.sort_label' | t }}</label>
+              <select id="SortBy" name="sort_by" class="nt-collection__sort-select" data-nt-sort>
+                <option value="manual" {% if collection.sort_by == 'manual' %}selected{% endif %}>{{ 'collection.sort_featured' | t }}</option>
+                <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>{{ 'collection.sort_best_selling' | t }}</option>
+                <option value="title-ascending" {% if collection.sort_by == 'title-ascending' %}selected{% endif %}>{{ 'collection.sort_title_asc' | t }}</option>
+                <option value="title-descending" {% if collection.sort_by == 'title-descending' %}selected{% endif %}>{{ 'collection.sort_title_desc' | t }}</option>
+                <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>{{ 'collection.sort_price_asc' | t }}</option>
+                <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>{{ 'collection.sort_price_desc' | t }}</option>
+                <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>{{ 'collection.sort_newest' | t }}</option>
+              </select>
+            </form>
+          </div>
+        </header>
 
-    {% for filter in collection.filters %}
-      <div class="nt-filter-group">
-        <h3 class="nt-filter-group__title">{{ filter.label }}</h3>
-        {% case filter.type %}
-          {% when 'list' %}
-            {% for value in filter.values %}
-              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;padding:0.25rem 0">
-                <input type="checkbox" {% if value.active %}checked{% endif %}>
-                {{ value.label }} ({{ value.count }})
-              </label>
+        {% paginate collection.products by section.settings.products_per_page %}
+          <div class="nt-grid nt-grid--4">
+            {% for product in collection.products %}
+              {% render 'product-card', product: product %}
+            {% else %}
+              <p class="nt-collection__empty">{{ 'general.no_products' | t }}</p>
             {% endfor %}
-        {% endcase %}
-      </div>
-    {% endfor %}
-  </aside>
-
-  <div>
-    <header style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
-      <div>
-        <h1 class="nt-heading" style="font-size:1.75rem">{{ collection.title }}</h1>
-        {% if collection.description != blank %}
-          <p class="nt-subheading" style="margin-top:0.5rem">{{ collection.description }}</p>
-        {% endif %}
-        <p style="font-size:0.875rem;color:var(--nt-gray-500);margin-top:0.5rem">{{ collection.products_count }} {{ 'general.products_count' | t }}</p>
-      </div>
-      <div style="display:flex;gap:0.75rem;align-items:center">
-        <button type="button" class="nt-btn nt-btn--secondary nt-btn--sm" data-nt-filter-toggle>{{ 'general.filters' | t }}</button>
-        <select style="padding:0.5rem 1rem;border:1px solid var(--nt-gray-200);border-radius:8px;font-size:0.875rem">
-          <option>{{ 'collection.sort_featured' | t }}</option>
-          <option>{{ 'collection.sort_price_asc' | t }}</option>
-          <option>{{ 'collection.sort_price_desc' | t }}</option>
-          <option>{{ 'collection.sort_newest' | t }}</option>
-        </select>
-      </div>
-    </header>
-
-    {% paginate collection.products by 24 %}
-      <div class="nt-grid nt-grid--4">
-        {% for product in collection.products %}
-          {% render 'product-card', product: product %}
-        {% else %}
-          <p style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--nt-gray-500)">{{ 'general.no_products' | t }}</p>
-        {% endfor %}
-      </div>
-      {% if paginate.pages > 1 %}
-        <nav style="display:flex;justify-content:center;gap:0.5rem;margin-top:2.5rem" aria-label="{{ 'accessibility.pagination' | t }}">
-          {% if paginate.previous %}
-            <a href="{{ paginate.previous.url }}" class="nt-btn nt-btn--secondary nt-btn--sm">← {{ 'general.previous' | t }}</a>
+          </div>
+          {% if paginate.pages > 1 %}
+            <nav class="nt-pagination" aria-label="{{ 'accessibility.pagination' | t }}">
+              {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}" class="nt-btn nt-btn--secondary nt-btn--sm">← {{ 'general.previous' | t }}</a>
+              {% endif %}
+              <span class="nt-pagination__info">{{ 'general.page_of' | t }} {{ paginate.current_page }} {{ 'general.of' | t }} {{ paginate.pages }}</span>
+              {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" class="nt-btn nt-btn--secondary nt-btn--sm">{{ 'general.next' | t }} →</a>
+              {% endif %}
+            </nav>
           {% endif %}
-          <span style="padding:0.5rem 1rem;font-size:0.875rem">{{ 'general.page_of' | t }} {{ paginate.current_page }} {{ 'general.of' | t }} {{ paginate.pages }}</span>
-          {% if paginate.next %}
-            <a href="{{ paginate.next.url }}" class="nt-btn nt-btn--secondary nt-btn--sm">{{ 'general.next' | t }} →</a>
-          {% endif %}
-        </nav>
-      {% endif %}
-    {% endpaginate %}
+        {% endpaginate %}
+      </div>
+    </div>
   </div>
 </section>
 
@@ -85,6 +72,16 @@
   "name": "Colección",
   "tag": "section",
   "class": "section-main-collection",
-  "settings": []
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 12,
+      "max": 48,
+      "step": 12,
+      "default": 24,
+      "label": "Productos por página"
+    }
+  ]
 }
 {% endschema %}

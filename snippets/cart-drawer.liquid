@@ -1,0 +1,39 @@
+{% doc %}
+Mini-carrito lateral para conversión rápida.
+{% enddoc %}
+<div class="nt-cart-drawer" data-nt-cart-drawer aria-hidden="true">
+  <div class="nt-cart-drawer__backdrop" data-nt-cart-close></div>
+  <aside class="nt-cart-drawer__panel" role="dialog" aria-label="{{ 'general.cart' | t }}">
+    <div class="nt-cart-drawer__head">
+      <h2>{{ 'general.cart' | t }} {% if cart.item_count > 0 %}({{ cart.item_count }}){% endif %}</h2>
+      <button type="button" class="nt-cart-drawer__close" data-nt-cart-close aria-label="{{ 'accessibility.close' | t }}">×</button>
+    </div>
+    <div class="nt-cart-drawer__body" data-nt-cart-drawer-body>
+      {% if cart.item_count > 0 %}
+        {% for item in cart.items %}
+          <div class="nt-cart-drawer__item">
+            <a href="{{ item.url }}">
+              <img src="{{ item.image | image_url: width: 120 }}" alt="" width="64" height="64" loading="lazy">
+            </a>
+            <div>
+              <a href="{{ item.url }}" class="nt-cart-drawer__title">{{ item.product.title | truncate: 40 }}</a>
+              <p class="nt-cart-drawer__price">{{ item.final_line_price | money }} × {{ item.quantity }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="nt-cart-drawer__empty">{{ 'general.empty_cart' | t }}</p>
+      {% endif %}
+    </div>
+    {% if cart.item_count > 0 %}
+      <div class="nt-cart-drawer__foot">
+        <div class="nt-cart-drawer__total">
+          <span>{{ 'general.total' | t }}</span>
+          <strong>{{ cart.total_price | money }}</strong>
+        </div>
+        <a href="{{ routes.cart_url }}" class="nt-btn nt-btn--secondary nt-btn--full">{{ 'general.view_cart' | t }}</a>
+        <a href="{{ routes.cart_url }}" class="nt-btn nt-btn--primary nt-btn--full">{{ 'general.checkout' | t }}</a>
+      </div>
+    {% endif %}
+  </aside>
+</div>

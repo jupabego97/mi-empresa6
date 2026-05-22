@@ -63,7 +63,8 @@
     "previous": "Anterior",
     "next": "Siguiente",
     "price": "Precio",
-    "brand": "Marca"
+    "brand": "Marca",
+    "view_cart": "Ver carrito"
   },
   "home": {
     "hero_headline": "Tecnología que impulsa tu rendimiento",
@@ -87,7 +88,8 @@
     "spec_sku": "SKU",
     "spec_weight": "Peso",
     "spec_brand": "Marca",
-    "spec_type": "Tipo"
+    "spec_type": "Tipo",
+    "payment_methods": "Métodos de pago aceptados"
   },
   "service": {
     "title": "Servicio técnico profesional",
@@ -108,10 +110,54 @@
     "help_whatsapp": "Ayuda por WhatsApp"
   },
   "collection": {
+    "sort_label": "Ordenar por",
     "sort_featured": "Destacados",
+    "sort_best_selling": "Más vendidos",
+    "sort_title_asc": "Nombre A-Z",
+    "sort_title_desc": "Nombre Z-A",
     "sort_price_asc": "Precio: menor a mayor",
     "sort_price_desc": "Precio: mayor a menor",
-    "sort_newest": "Más recientes"
+    "sort_newest": "Más recientes",
+    "clear_filters": "Limpiar filtros",
+    "filter_hint": "Activa filtros en Shopify → Busca y descubrimiento para esta colección."
+  },
+  "contact": {
+    "address": "Dirección",
+    "phone": "Teléfono",
+    "hours": "Horario",
+    "form_title": "Envíanos un mensaje",
+    "name": "Nombre",
+    "email": "Correo",
+    "message": "Mensaje",
+    "submit": "Enviar mensaje",
+    "success": "¡Gracias! Te responderemos pronto."
+  },
+  "customer": {
+    "login": {
+      "title": "Ingresar a tu cuenta",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Ingresar",
+      "create": "Crear cuenta"
+    },
+    "register": {
+      "title": "Crear cuenta",
+      "first_name": "Nombre",
+      "last_name": "Apellido",
+      "email": "Correo",
+      "password": "Contraseña",
+      "submit": "Registrarse",
+      "login": "¿Ya tienes cuenta? Ingresa"
+    },
+    "account": {
+      "title": "Mi cuenta",
+      "logout": "Cerrar sesión",
+      "orders": "Mis pedidos",
+      "order": "Pedido",
+      "date": "Fecha",
+      "total": "Total",
+      "no_orders": "Aún no tienes pedidos."
+    }
   },
   "footer": {
     "tagline": "La tienda tecnológica más confiable del oriente antioqueño. Tecnología, gaming, audio, accesorios y servicio técnico profesional.",

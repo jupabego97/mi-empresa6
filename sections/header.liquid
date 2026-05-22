@@ -10,6 +10,10 @@
 
   <div class="nt-header__main">
     <div class="nt-container nt-header__inner">
+      <button type="button" class="nt-header__menu-btn" data-nt-menu-toggle aria-expanded="false" aria-label="{{ 'accessibility.menu' | t }}">
+        {% render 'icon', name: 'menu' %}
+      </button>
+
       <a href="{{ routes.root_url }}" class="nt-header__logo" aria-label="{{ shop.name }}">
         {% if settings.logo %}
           <img src="{{ settings.logo | image_url: width: settings.logo_width }}" alt="{{ shop.name }}" width="{{ settings.logo_width }}" loading="eager">
@@ -35,25 +39,22 @@
       </form>
 
       <div class="nt-header__actions">
-        <a href="{{ routes.account_url }}" class="nt-header__action">
+        <a href="{{ routes.account_url }}" class="nt-header__action nt-header__action--hide-mobile">
           {% render 'icon', name: 'user' %}
-          {{ 'general.login' | t }}
+          <span>{{ 'general.login' | t }}</span>
         </a>
-        <a href="/pages/servicio-tecnico" class="nt-header__action nt-hide-mobile" style="display:none">
+        <a href="/pages/servicio-tecnico" class="nt-header__action nt-header__action--hide-mobile">
           {% render 'icon', name: 'shield' %}
-          {{ 'general.support' | t }}
+          <span>{{ 'general.support' | t }}</span>
         </a>
-        {% render 'whatsapp-link', class: 'nt-btn--sm' %}
-        <a href="{{ routes.cart_url }}" class="nt-header__action" style="position:relative">
+        <span class="nt-header__wa-desktop">{% render 'whatsapp-link', class: 'nt-btn--sm' %}</span>
+        <a href="{{ routes.cart_url }}" class="nt-header__action nt-header__cart" data-nt-open-cart style="position:relative">
           {% render 'icon', name: 'cart' %}
-          {{ 'general.cart' | t }}
+          <span class="nt-header__action-label">{{ 'general.cart' | t }}</span>
           {% if cart.item_count > 0 %}
             <span class="nt-header__cart-count">{{ cart.item_count }}</span>
           {% endif %}
         </a>
-        <button type="button" class="nt-header__action" data-nt-menu-toggle aria-expanded="false" aria-label="{{ 'accessibility.menu' | t }}" style="display:none">
-          {% render 'icon', name: 'menu' %}
-        </button>
       </div>
     </div>
   </div>
@@ -61,17 +62,21 @@
   <nav class="nt-header__nav" aria-label="{{ 'accessibility.main_nav' | t }}">
     <div class="nt-container">
       <ul class="nt-header__nav-list">
-        <li><a href="{{ routes.collections_url }}" class="nt-header__nav-link nt-header__nav-link--active">{{ 'general.categories' | t }}</a></li>
+        <li><a href="{{ routes.collections_url }}" class="nt-header__nav-link">{{ 'general.categories' | t }}</a></li>
         <li><a href="{{ routes.collections_url }}/ofertas" class="nt-header__nav-link nt-header__nav-link--highlight">{{ 'general.offers' | t }}</a></li>
         <li><a href="/pages/marcas" class="nt-header__nav-link">{{ 'general.brands' | t }}</a></li>
         <li><a href="/pages/servicio-tecnico" class="nt-header__nav-link">{{ 'general.technical_service' | t }}</a></li>
-        {% for link in linklists[section.settings.menu].links limit: 8 %}
+        <li><a href="/pages/nosotros" class="nt-header__nav-link">{{ 'footer.about' | t }}</a></li>
+        <li><a href="/pages/contacto" class="nt-header__nav-link">{{ 'footer.contact' | t }}</a></li>
+        {% for link in linklists[section.settings.menu].links limit: 6 %}
           <li><a href="{{ link.url }}" class="nt-header__nav-link">{{ link.title }}</a></li>
         {% endfor %}
       </ul>
     </div>
   </nav>
 </header>
+
+{% render 'mobile-menu' %}
 
 {% schema %}
 {

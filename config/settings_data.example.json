@@ -1,0 +1,26 @@
+{
+  "current": {
+    "logo_width": 160,
+    "brand_tagline": "Tecnología que impulsa tu rendimiento — Viboral, Antioquia",
+    "color_electric": "#0066FF",
+    "color_royal": "#1E3A8A",
+    "color_dark": "#0F172A",
+    "whatsapp_number": "573001234567",
+    "whatsapp_message": "Hola NANOTRONICS, necesito ayuda con:",
+    "store_address": "El Carmen de Viboral, Antioquia",
+    "store_hours": "Lun–Sáb 9:00 a.m. – 7:00 p.m.",
+    "store_phone": "+57 300 123 4567",
+    "show_installments": true,
+    "installments_text": "Paga en cuotas con tarjetas participantes",
+    "sticky_add_to_cart_mobile": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu",
+          "search_placeholder": "Buscar portátiles, celulares, gaming..."
+        }
+      }
+    }
+  }
+}

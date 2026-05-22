@@ -1,0 +1,25 @@
+{% doc %}
+@param {string} [class] - Clases extra
+Navegación breadcrumb contextual.
+{% enddoc %}
+{% unless template.name == 'index' %}
+<nav class="nt-breadcrumbs {{ class }}" aria-label="Breadcrumb">
+  <ol class="nt-breadcrumbs__list">
+    <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+    {% if template.name == 'product' and product %}
+      {% if collection %}
+        <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+      {% endif %}
+      <li aria-current="page">{{ product.title }}</li>
+    {% elsif template.name == 'collection' and collection %}
+      <li aria-current="page">{{ collection.title }}</li>
+    {% elsif template.name == 'cart' %}
+      <li aria-current="page">{{ 'general.cart' | t }}</li>
+    {% elsif template.name == 'search' %}
+      <li aria-current="page">{{ 'search.title' | t }}</li>
+    {% elsif page %}
+      <li aria-current="page">{{ page.title }}</li>
+    {% endif %}
+  </ol>
+</nav>
+{% endunless %}

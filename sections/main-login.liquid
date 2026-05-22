@@ -1,0 +1,16 @@
+<section class="nt-section nt-auth">
+  <div class="nt-container nt-auth__box">
+    <h1>{{ 'customer.login.title' | t }}</h1>
+    {% form 'customer_login' %}
+      {{ form.errors | default_errors }}
+      <label class="nt-field"><span>{{ 'customer.login.email' | t }}</span><input type="email" name="customer[email]" autocomplete="email" required></label>
+      <label class="nt-field"><span>{{ 'customer.login.password' | t }}</span><input type="password" name="customer[password]" autocomplete="current-password" required></label>
+      <button type="submit" class="nt-btn nt-btn--primary nt-btn--full">{{ 'customer.login.submit' | t }}</button>
+    {% endform %}
+    <p class="nt-auth__footer"><a href="{{ routes.account_register_url }}">{{ 'customer.login.create' | t }}</a></p>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Ingresar", "settings": [] }
+{% endschema %}

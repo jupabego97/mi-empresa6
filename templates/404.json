@@ -1,13 +1,8 @@
 {
   "sections": {
     "main": {
-      "type": "hero-home",
-      "settings": {
-        "headline": "Página no encontrada",
-        "subheadline": "El producto o página que buscas no existe. Explora nuestras categorías.",
-        "cta_primary_label": "Ir al inicio",
-        "cta_primary_url": "/"
-      }
+      "type": "main-404",
+      "settings": {}
     }
   },
   "order": ["main"]

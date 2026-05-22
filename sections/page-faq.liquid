@@ -1,0 +1,57 @@
+<section class="nt-section">
+  <div class="nt-container">
+    {% render 'breadcrumbs' %}
+    <header class="nt-page-header">
+      <h1>{{ page.title | default: section.settings.title }}</h1>
+      {% if page.content != blank %}
+        <div class="rte nt-page-header__intro">{{ page.content }}</div>
+      {% elsif section.settings.intro != blank %}
+        <p class="nt-page-header__intro">{{ section.settings.intro }}</p>
+      {% endif %}
+    </header>
+    <div class="nt-faq-list">
+      {% for block in section.blocks %}
+        <details class="nt-faq-item" {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="rte">{{ block.settings.answer }}</div>
+        </details>
+      {% endfor %}
+    </div>
+    <div class="nt-faq-cta">
+      <p>{{ section.settings.cta_text }}</p>
+      {% render 'whatsapp-link', class: 'nt-btn--whatsapp' %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título (si no hay página)", "default": "Preguntas frecuentes" },
+    { "type": "textarea", "id": "intro", "label": "Introducción", "default": "Resolvemos las dudas más comunes sobre compras, envíos y garantía en NANOTRONICS." },
+    { "type": "text", "id": "cta_text", "label": "Texto CTA", "default": "¿No encontraste tu respuesta? Escríbenos." }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Pregunta",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Pregunta", "default": "¿Cuál es la garantía de los productos?" },
+        { "type": "richtext", "id": "answer", "label": "Respuesta", "default": "<p>Todos los productos incluyen garantía oficial del fabricante. NANOTRONICS respalda cada venta con servicio en Viboral.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "¿Hacen envíos a toda Colombia?", "answer": "<p>Sí, enviamos a todo el país con transportadoras confiables. El costo se calcula en el checkout.</p>" } },
+        { "type": "faq", "settings": { "question": "¿Puedo recoger en tienda física?", "answer": "<p>Sí, puedes recoger tu pedido en nuestra tienda en El Carmen de Viboral, Antioquia.</p>" } },
+        { "type": "faq", "settings": { "question": "¿Qué métodos de pago aceptan?", "answer": "<p>Tarjetas, PSE, Nequi y otros métodos habilitados en Shopify Payments para Colombia.</p>" } },
+        { "type": "faq", "settings": { "question": "¿Ofrecen servicio técnico?", "answer": "<p>Sí, reparamos computadores, hacemos mantenimiento y upgrades. Visita la página de Servicio técnico.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

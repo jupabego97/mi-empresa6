@@ -1,144 +1,151 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign on_sale = product.compare_at_price > product.price %}
 
-<section class="nt-container nt-pdp">
-  <div>
-    <div class="nt-pdp__gallery-main">
-      <img
-        data-nt-pdp-main
-        src="{{ product.featured_image | image_url: width: 1000 }}"
-        alt="{{ product.featured_image.alt | escape }}"
-        width="1000"
-        height="1000"
-        loading="eager"
-      >
-    </div>
-    {% if product.images.size > 1 %}
-      <div class="nt-pdp__thumbs">
-        {% for image in product.images %}
-          <button
-            type="button"
-            class="nt-pdp__thumb {% if forloop.first %}nt-pdp__thumb--active{% endif %}"
-            data-nt-pdp-thumb
-            data-src="{{ image | image_url: width: 1000 }}"
-            aria-label="{{ 'product.view_image' | t }} {{ forloop.index }}"
+<script type="application/json" data-nt-product-json>
+  {{ product | json }}
+</script>
+
+<section class="nt-section">
+  <div class="nt-container">
+    {% render 'breadcrumbs', class: 'nt-breadcrumbs--pdp' %}
+
+    <div class="nt-pdp">
+      <div class="nt-pdp__gallery">
+        <div class="nt-pdp__gallery-main" data-nt-zoom-wrap>
+          <img
+            data-nt-pdp-main
+            src="{{ current_variant.featured_image | default: product.featured_image | image_url: width: 1000 }}"
+            alt="{{ product.featured_image.alt | default: product.title | escape }}"
+            width="1000"
+            height="1000"
+            loading="eager"
           >
-            <img src="{{ image | image_url: width: 144 }}" alt="" width="72" height="72" loading="lazy">
-          </button>
-        {% endfor %}
-      </div>
-    {% endif %}
-  </div>
-
-  <div>
-    <p style="font-size:0.8125rem;color:var(--nt-gray-500);margin-bottom:0.5rem">{{ product.vendor }}</p>
-    <h1 style="font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:0.75rem">{{ product.title }}</h1>
-
-    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem">
-      {% for i in (1..5) %}{% render 'icon', name: 'star' %}{% endfor %}
-      <span style="font-size:0.875rem;color:var(--nt-gray-500)">({{ product.metafields.reviews.rating_count | default: '12' }} {{ 'product.reviews_count' | t }})</span>
-    </div>
-
-    <div class="nt-pdp__price">
-      {{ product.price | money }}
-      {% if on_sale %}
-        <span style="font-size:1rem;color:var(--nt-gray-400);text-decoration:line-through;font-weight:500;margin-left:0.5rem">{{ product.compare_at_price | money }}</span>
-        <span class="nt-badge nt-badge--sale" style="margin-left:0.75rem;vertical-align:middle">
-          -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
-        </span>
-      {% endif %}
-    </div>
-
-    {% if settings.show_installments %}
-      <p style="font-size:0.9375rem;color:var(--nt-electric);font-weight:600;margin-top:0.5rem">{{ settings.installments_text }}</p>
-    {% endif %}
-
-    {% form 'product', product, id: 'product-form' %}
-      <input type="hidden" name="id" value="{{ current_variant.id }}">
-
-      {% unless product.has_only_default_variant %}
-        <div style="margin:1.5rem 0">
-          {% for option in product.options_with_values %}
-            <label style="display:block;font-size:0.875rem;font-weight:700;margin-bottom:0.5rem">{{ option.name }}</label>
-            <select name="options[{{ option.name | escape }}]" style="width:100%;padding:0.75rem;border:1px solid var(--nt-gray-200);border-radius:var(--nt-radius);margin-bottom:1rem">
-              {% for value in option.values %}
-                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
-              {% endfor %}
-            </select>
-          {% endfor %}
         </div>
-      {% endunless %}
-
-      <div class="nt-pdp__trust">
-        <span class="nt-pdp__trust-item">{% render 'icon', name: 'shield' %} {{ 'product.guarantee' | t }}</span>
-        <span class="nt-pdp__trust-item">{% render 'icon', name: 'truck' %} {{ 'product.shipping_info' | t }}</span>
-        {% if product.available %}
-          <span class="nt-pdp__trust-item" style="color:var(--nt-success);font-weight:600">{{ 'general.in_stock' | t }}</span>
+        {% if product.media.size > 1 %}
+          <div class="nt-pdp__thumbs">
+            {% for media in product.media limit: 8 %}
+              {% if media.media_type == 'image' %}
+                <button
+                  type="button"
+                  class="nt-pdp__thumb {% if forloop.first %}nt-pdp__thumb--active{% endif %}"
+                  data-nt-pdp-thumb
+                  data-src="{{ media | image_url: width: 1000 }}"
+                  aria-label="{{ 'product.view_image' | t }} {{ forloop.index }}"
+                >
+                  <img src="{{ media | image_url: width: 144 }}" alt="" width="72" height="72" loading="lazy">
+                </button>
+              {% endif %}
+            {% endfor %}
+          </div>
         {% endif %}
       </div>
 
-      <div class="nt-pdp__actions">
-        <button type="submit" name="add" class="nt-btn nt-btn--primary nt-btn--lg nt-btn--full" {% unless product.available %}disabled{% endunless %}>
-          {{ 'general.buy_now' | t }}
-        </button>
-        <button type="submit" name="add" class="nt-btn nt-btn--secondary nt-btn--full" formaction="{{ routes.cart_add_url }}">
-          {{ 'general.add_to_cart' | t }}
-        </button>
-        {% capture wa_product %}{{ 'whatsapp.product_message_prefix' | t }} {{ product.title }} - {{ shop.url }}{{ product.url }}{% endcapture %}
-        {% render 'whatsapp-link', message: wa_product, class: 'nt-btn--full', label: 'product.ask_whatsapp' | t %}
+      <div class="nt-pdp__info">
+        {% if product.vendor != blank %}
+          <p class="nt-pdp__vendor">{{ product.vendor }}</p>
+        {% endif %}
+        <h1 class="nt-pdp__title">{{ product.title }}</h1>
+
+        <div class="nt-pdp__rating">
+          {% for i in (1..5) %}{% render 'icon', name: 'star' %}{% endfor %}
+          <span>({{ product.metafields.reviews.rating_count | default: '12' }} {{ 'product.reviews_count' | t }})</span>
+        </div>
+
+        <div class="nt-pdp__price-block" data-nt-pdp-price>
+          <span class="nt-pdp__price">{{ current_variant.price | money }}</span>
+          {% if on_sale %}
+            <span class="nt-pdp__compare" data-nt-pdp-compare>{{ current_variant.compare_at_price | money }}</span>
+            <span class="nt-badge nt-badge--sale" data-nt-pdp-badge>-{{ current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price }}%</span>
+          {% endif %}
+        </div>
+
+        {% if settings.show_installments %}
+          <p class="nt-pdp__installments">{{ settings.installments_text }}</p>
+        {% endif %}
+
+        {% form 'product', product, id: 'product-form', class: 'nt-pdp__form' %}
+          <select name="id" id="ProductSelect" class="nt-pdp__variant-select" data-nt-variant-select>
+            {% for variant in product.variants %}
+              <option
+                value="{{ variant.id }}"
+                {% if variant == current_variant %}selected{% endif %}
+                {% unless variant.available %}disabled{% endunless %}
+              >
+                {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} ({{ 'general.out_of_stock' | t }}){% endunless %}
+              </option>
+            {% endfor %}
+          </select>
+
+          <div class="nt-pdp__trust">
+            <span class="nt-pdp__trust-item">{% render 'icon', name: 'shield' %} {{ 'product.guarantee' | t }}</span>
+            <span class="nt-pdp__trust-item">{% render 'icon', name: 'truck' %} {{ 'product.shipping_info' | t }}</span>
+            <span class="nt-pdp__trust-item nt-pdp__stock" data-nt-pdp-stock {% unless product.available %}style="color:var(--nt-danger)"{% endunless %}>
+              {% if product.available %}{{ 'general.in_stock' | t }}{% else %}{{ 'general.out_of_stock' | t }}{% endif %}
+            </span>
+          </div>
+
+          {% render 'payment-icons' %}
+
+          <div class="nt-pdp__actions">
+            <button type="submit" name="add" class="nt-btn nt-btn--primary nt-btn--lg nt-btn--full" data-nt-add-cart {% unless current_variant.available %}disabled{% endunless %}>
+              {{ 'general.add_to_cart' | t }}
+            </button>
+            <button type="submit" name="add" class="nt-btn nt-btn--dark nt-btn--full" formaction="{{ routes.cart_url }}/add" data-nt-buy-now {% unless current_variant.available %}disabled{% endunless %}>
+              {{ 'general.buy_now' | t }}
+            </button>
+            {% capture wa_product %}{{ 'whatsapp.product_message_prefix' | t }} {{ product.title }} - {{ shop.url }}{{ product.url }}{% endcapture %}
+            {% assign wa_label = 'product.ask_whatsapp' | t %}
+            {% render 'whatsapp-link', message: wa_product, class: 'nt-btn--full', label: wa_label %}
+          </div>
+        {% endform %}
       </div>
-    {% endform %}
+    </div>
   </div>
 </section>
 
 {% if settings.sticky_add_to_cart_mobile %}
 <div class="nt-pdp__sticky-bar">
-  <span class="nt-pdp__price">{{ product.price | money }}</span>
-  <button type="submit" form="product-form" class="nt-btn nt-btn--primary" style="flex:1">{{ 'general.add_to_cart' | t }}</button>
+  <span class="nt-pdp__price" data-nt-sticky-price>{{ current_variant.price | money }}</span>
+  <button type="submit" form="product-form" class="nt-btn nt-btn--primary" style="flex:1" {% unless current_variant.available %}disabled{% endunless %}>{{ 'general.add_to_cart' | t }}</button>
 </div>
 {% endif %}
 
-<section class="nt-container" style="padding-bottom:4rem">
+<section class="nt-container nt-pdp-tabs-wrap">
   <div class="nt-tabs" role="tablist">
     <button type="button" class="nt-tabs__btn nt-tabs__btn--active" data-nt-tab="desc">{{ 'general.description' | t }}</button>
     <button type="button" class="nt-tabs__btn" data-nt-tab="specs">{{ 'general.specifications' | t }}</button>
     <button type="button" class="nt-tabs__btn" data-nt-tab="faq">{{ 'general.faq' | t }}</button>
     <button type="button" class="nt-tabs__btn" data-nt-tab="reviews">{{ 'general.reviews' | t }}</button>
   </div>
-  <div data-nt-tab-panel="desc" style="padding:2rem 0;line-height:1.8;color:var(--nt-gray-600)">
-    {{ product.description }}
+  <div data-nt-tab-panel="desc" class="nt-pdp-tab-panel">
+    <div class="rte">{{ product.description }}</div>
   </div>
-  <div data-nt-tab-panel="specs" hidden style="padding:2rem 0">
-    <table style="width:100%;border-collapse:collapse;font-size:0.9375rem">
-      {% for variant in product.variants limit: 1 %}
-        <tr style="border-bottom:1px solid var(--nt-gray-100)"><td style="padding:0.75rem;font-weight:600">{{ 'product.spec_sku' | t }}</td><td style="padding:0.75rem">{{ variant.sku }}</td></tr>
-        <tr style="border-bottom:1px solid var(--nt-gray-100)"><td style="padding:0.75rem;font-weight:600">{{ 'product.spec_weight' | t }}</td><td style="padding:0.75rem">{{ variant.weight | default: '—' }} {{ variant.weight_unit }}</td></tr>
-      {% endfor %}
-      <tr><td style="padding:0.75rem;font-weight:600">{{ 'product.spec_brand' | t }}</td><td style="padding:0.75rem">{{ product.vendor }}</td></tr>
-      <tr><td style="padding:0.75rem;font-weight:600">{{ 'product.spec_type' | t }}</td><td style="padding:0.75rem">{{ product.type }}</td></tr>
+  <div data-nt-tab-panel="specs" class="nt-pdp-tab-panel" hidden>
+    <table class="nt-spec-table">
+      <tr><th>{{ 'product.spec_sku' | t }}</th><td data-nt-spec-sku>{{ current_variant.sku }}</td></tr>
+      <tr><th>{{ 'product.spec_brand' | t }}</th><td>{{ product.vendor }}</td></tr>
+      <tr><th>{{ 'product.spec_type' | t }}</th><td>{{ product.type }}</td></tr>
+      {% if current_variant.weight > 0 %}
+        <tr><th>{{ 'product.spec_weight' | t }}</th><td>{{ current_variant.weight }} {{ current_variant.weight_unit }}</td></tr>
+      {% endif %}
     </table>
   </div>
-  <div data-nt-tab-panel="faq" hidden style="padding:2rem 0">
-    <details style="margin-bottom:1rem;border:1px solid var(--nt-gray-100);border-radius:var(--nt-radius);padding:1rem">
-      <summary style="font-weight:700;cursor:pointer">{{ 'product.faq_warranty_q' | t }}</summary>
-      <p style="margin-top:0.75rem;color:var(--nt-gray-600)">{{ 'product.faq_warranty_a' | t }}</p>
-    </details>
-    <details style="margin-bottom:1rem;border:1px solid var(--nt-gray-100);border-radius:var(--nt-radius);padding:1rem">
-      <summary style="font-weight:700;cursor:pointer">{{ 'product.faq_shipping_q' | t }}</summary>
-      <p style="margin-top:0.75rem;color:var(--nt-gray-600)">{{ 'product.faq_shipping_a' | t }}</p>
-    </details>
+  <div data-nt-tab-panel="faq" class="nt-pdp-tab-panel" hidden>
+    <details class="nt-faq-item"><summary>{{ 'product.faq_warranty_q' | t }}</summary><p>{{ 'product.faq_warranty_a' | t }}</p></details>
+    <details class="nt-faq-item"><summary>{{ 'product.faq_shipping_q' | t }}</summary><p>{{ 'product.faq_shipping_a' | t }}</p></details>
   </div>
-  <div data-nt-tab-panel="reviews" hidden style="padding:2rem 0">
-    <p style="color:var(--nt-gray-500)">{{ 'product.reviews_placeholder' | t }}</p>
+  <div data-nt-tab-panel="reviews" class="nt-pdp-tab-panel" hidden>
+    <p class="nt-pdp-reviews-placeholder">{{ 'product.reviews_placeholder' | t }}</p>
   </div>
 </section>
 
-{% if section.settings.show_related %}
+{% if section.settings.show_related and product.collections.size > 0 %}
 <section class="nt-section nt-section--gray">
   <div class="nt-container">
-    <h2 class="nt-heading" style="font-size:1.5rem;margin-bottom:2rem">{{ 'general.related_products' | t }}</h2>
+    <h2 class="nt-heading nt-heading--section">{{ 'general.related_products' | t }}</h2>
     <div class="nt-grid nt-grid--4">
-      {% for related in product.collections.first.products limit: 4 %}
+      {% assign related_collection = product.collections.first %}
+      {% for related in related_collection.products limit: 5 %}
         {% unless related.id == product.id %}
           {% render 'product-card', product: related %}
         {% endunless %}

@@ -1,0 +1,18 @@
+<section class="nt-section nt-auth">
+  <div class="nt-container nt-auth__box">
+    <h1>{{ 'customer.register.title' | t }}</h1>
+    {% form 'create_customer' %}
+      {{ form.errors | default_errors }}
+      <label class="nt-field"><span>{{ 'customer.register.first_name' | t }}</span><input type="text" name="customer[first_name]" autocomplete="given-name" required></label>
+      <label class="nt-field"><span>{{ 'customer.register.last_name' | t }}</span><input type="text" name="customer[last_name]" autocomplete="family-name" required></label>
+      <label class="nt-field"><span>{{ 'customer.register.email' | t }}</span><input type="email" name="customer[email]" autocomplete="email" required></label>
+      <label class="nt-field"><span>{{ 'customer.register.password' | t }}</span><input type="password" name="customer[password]" autocomplete="new-password" required></label>
+      <button type="submit" class="nt-btn nt-btn--primary nt-btn--full">{{ 'customer.register.submit' | t }}</button>
+    {% endform %}
+    <p class="nt-auth__footer"><a href="{{ routes.account_login_url }}">{{ 'customer.register.login' | t }}</a></p>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Registro", "settings": [] }
+{% endschema %}

@@ -1,0 +1,30 @@
+<section class="nt-section">
+  <div class="nt-container">
+    {% render 'breadcrumbs' %}
+    <h1>{{ 'customer.account.title' | t }}</h1>
+    <p><a href="{{ routes.account_logout_url }}" class="nt-btn nt-btn--secondary nt-btn--sm">{{ 'customer.account.logout' | t }}</a></p>
+    <h2>{{ 'customer.account.orders' | t }}</h2>
+    {% if customer.orders.size > 0 %}
+      <table class="nt-account-table">
+        <thead>
+          <tr><th>{{ 'customer.account.order' | t }}</th><th>{{ 'customer.account.date' | t }}</th><th>{{ 'customer.account.total' | t }}</th></tr>
+        </thead>
+        <tbody>
+          {% for order in customer.orders %}
+            <tr>
+              <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+              <td>{{ order.created_at | date: '%d/%m/%Y' }}</td>
+              <td>{{ order.total_price | money }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>{{ 'customer.account.no_orders' | t }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Cuenta", "settings": [] }
+{% endschema %}

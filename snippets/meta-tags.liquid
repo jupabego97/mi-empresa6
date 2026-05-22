@@ -1,0 +1,8 @@
+{% doc %}
+Meta tags SEO y redes sociales adicionales.
+{% enddoc %}
+<meta name="robots" content="index, follow">
+{% if settings.brand_tagline != blank %}
+  <meta name="description" content="{{ settings.brand_tagline | escape }}">
+{% endif %}
+<link rel="canonical" href="{{ canonical_url }}">

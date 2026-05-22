@@ -1,0 +1,58 @@
+{% doc %}
+@param {collection} collection
+Filtros nativos de Shopify (Storefront Filtering).
+{% enddoc %}
+{% if collection.filters.size > 0 %}
+  {% for filter in collection.filters %}
+    <div class="nt-filter-group">
+      <h3 class="nt-filter-group__title">{{ filter.label }}</h3>
+      {% case filter.type %}
+        {% when 'list' %}
+          <ul class="nt-filter-list">
+            {% for value in filter.values %}
+              <li>
+                <a
+                  href="{{ value.url }}"
+                  class="nt-filter-link{% if value.active %} nt-filter-link--active{% endif %}{% if value.count == 0 and value.active == false %} nt-filter-link--disabled{% endif %}"
+                >
+                  {{ value.label }}
+                  <span class="nt-filter-link__count">({{ value.count }})</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% when 'price_range' %}
+          <form class="nt-filter-price" action="{{ collection.url }}" method="get">
+            {% assign min_param = filter.min_value.param_name %}
+            {% assign max_param = filter.max_value.param_name %}
+            <div class="nt-filter-price__row">
+              <input
+                type="number"
+                name="{{ min_param }}"
+                value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                placeholder="Mín"
+                class="nt-filter-price__input"
+              >
+              <span>—</span>
+              <input
+                type="number"
+                name="{{ max_param }}"
+                value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                placeholder="Máx"
+                class="nt-filter-price__input"
+              >
+            </div>
+            <button type="submit" class="nt-btn nt-btn--secondary nt-btn--sm nt-btn--full">{{ 'general.filters' | t }}</button>
+          </form>
+      {% endcase %}
+    </div>
+  {% endfor %}
+  {% if collection.filters.active_values.size > 0 %}
+    <a href="{{ collection.url }}" class="nt-btn nt-btn--secondary nt-btn--sm nt-btn--full">{{ 'collection.clear_filters' | t }}</a>
+  {% endif %}
+{% elsif collection.all_vendors.size > 0 %}
+  <div class="nt-filter-group">
+    <h3 class="nt-filter-group__title">{{ 'general.brand' | t }}</h3>
+    <p class="nt-filter-hint">{{ 'collection.filter_hint' | t }}</p>
+  </div>
+{% endif %}

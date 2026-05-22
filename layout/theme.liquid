@@ -96,6 +96,7 @@
 
   {% sections 'footer-group' %}
 
+  {% render 'cart-drawer' %}
   {% render 'whatsapp-float' %}
   {% render 'mobile-nav-bar' %}
 
@@ -103,7 +104,10 @@
     window.NT_I18N = {
       adding: {{ 'js.adding' | t | json }},
       add: {{ 'general.quick_add' | t | json }},
-      addFallback: {{ 'js.add_fallback' | t | json }}
+      addFallback: {{ 'js.add_fallback' | t | json }},
+      inStock: {{ 'general.in_stock' | t | json }},
+      outOfStock: {{ 'general.out_of_stock' | t | json }},
+      viewCart: {{ 'general.view_cart' | t | json }}
     };
   </script>
   <script src="{{ 'theme.js' | asset_url }}" defer></script>

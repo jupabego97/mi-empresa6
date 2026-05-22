@@ -1,0 +1,30 @@
+<section class="nt-section nt-404">
+  <div class="nt-container nt-404__inner">
+    <p class="nt-404__code">404</p>
+    <h1 class="nt-404__title">{{ section.settings.title }}</h1>
+    <p class="nt-404__text">{{ section.settings.text }}</p>
+    <div class="nt-404__actions">
+      <a href="{{ routes.root_url }}" class="nt-btn nt-btn--primary">{{ section.settings.cta_home }}</a>
+      <a href="{{ routes.collections_url }}" class="nt-btn nt-btn--secondary">{{ section.settings.cta_shop }}</a>
+      {% render 'whatsapp-link', class: 'nt-btn--whatsapp' %}
+    </div>
+    <div class="nt-grid nt-grid--4 nt-404__categories">
+      <a href="{{ routes.collections_url }}" class="nt-card nt-card--link">{{ 'general.categories' | t }}</a>
+      <a href="{{ routes.collections_url }}/ofertas" class="nt-card nt-card--link">{{ 'general.offers' | t }}</a>
+      <a href="/pages/servicio-tecnico" class="nt-card nt-card--link">{{ 'general.technical_service' | t }}</a>
+      <a href="{{ routes.search_url }}" class="nt-card nt-card--link">{{ 'general.search' | t }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Página 404",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Página no encontrada" },
+    { "type": "textarea", "id": "text", "label": "Descripción", "default": "El producto o página que buscas no existe. Explora nuestro catálogo de tecnología." },
+    { "type": "text", "id": "cta_home", "label": "Botón inicio", "default": "Ir al inicio" },
+    { "type": "text", "id": "cta_shop", "label": "Botón tienda", "default": "Ver categorías" }
+  ]
+}
+{% endschema %}

@@ -21,9 +21,12 @@ Repositorio: [github.com/jupabego97/mi-empresa6](https://github.com/jupabego97/m
 | Servicio técnico | `page.servicio-tecnico.json` |
 | Contacto | `page.contacto.json` |
 | Búsqueda | `search.json` |
-| Ofertas | Colección `ofertas` |
+| Ofertas | `collection.ofertas.json` (handle `ofertas`) |
+| FAQ | `page.faq.json` |
+| 404 | `main-404.liquid` |
+| Cuenta cliente | `templates/customers/*.json` |
 | Marcas | `page.marcas.json` |
-| Móvil | Barra inferior + sticky ATC en PDP |
+| Móvil | Menú drawer, mini-carrito, barra inferior, sticky ATC |
 
 ---
 
@@ -80,7 +83,9 @@ En **Personalizar tema**:
    - `servicio-tecnico`
    - `contacto`
    - `marcas`
-6. Menú principal con categorías
+   - `faq` (plantilla FAQ)
+6. Menú principal (`main-menu`) con categorías
+7. Ver checklist completo en [FASE2.md](FASE2.md)
 
 ### 4. Colección Ofertas
 
@@ -116,13 +121,17 @@ Ver [CHECKOUT.md](CHECKOUT.md). Con **Shopify Plus** el tema aplica `layout/chec
 
 ---
 
+## Fase 2 (completada)
+
+Menú móvil, drawer de carrito, filtros y orden en colección, PDP con variantes/zoom, FAQ, 404, contacto con formulario, cuentas de cliente y documentación en [FASE2.md](FASE2.md).
+
 ## Próximos pasos recomendados
 
 1. Fotos reales de productos, taller y equipo
 2. App de reviews (Judge.me / Loox)
-3. Integrar filtros Shopify Search & Discovery
+3. Activar filtros en **Search & Discovery** (UI ya preparada)
 4. Pixels Meta + Google Analytics 4
-5. Checkout branding en Shopify Plus o extensibilidad estándar
+5. Checkout: ver [CHECKOUT.md](CHECKOUT.md)
 
 ---
 

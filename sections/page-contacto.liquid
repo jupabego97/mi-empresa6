@@ -1,0 +1,59 @@
+<section class="nt-section">
+  <div class="nt-container">
+    {% render 'breadcrumbs' %}
+    <div class="nt-contact">
+      <div class="nt-contact__info">
+        <h1>{{ page.title | default: 'Contacto' }}</h1>
+        {% if page.content != blank %}
+          <div class="rte">{{ page.content }}</div>
+        {% endif %}
+        <ul class="nt-contact__list">
+          {% if settings.store_address != blank %}
+            <li><strong>{{ 'contact.address' | t }}</strong> {{ settings.store_address }}</li>
+          {% endif %}
+          {% if settings.store_phone != blank %}
+            <li><strong>{{ 'contact.phone' | t }}</strong> <a href="tel:{{ settings.store_phone }}">{{ settings.store_phone }}</a></li>
+          {% endif %}
+          {% if settings.store_hours != blank %}
+            <li><strong>{{ 'contact.hours' | t }}</strong> {{ settings.store_hours }}</li>
+          {% endif %}
+        </ul>
+        {% render 'whatsapp-link', class: 'nt-btn--whatsapp' %}
+        {% if section.settings.map_embed != blank %}
+          <div class="nt-contact__map">{{ section.settings.map_embed }}</div>
+        {% endif %}
+      </div>
+      <div class="nt-contact__form">
+        <h2>{{ 'contact.form_title' | t }}</h2>
+        {% form 'contact' %}
+          {% if form.posted_successfully? %}
+            <p class="nt-contact__success">{{ 'contact.success' | t }}</p>
+          {% endif %}
+          {{ form.errors | default_errors }}
+          <label class="nt-field">
+            <span>{{ 'contact.name' | t }}</span>
+            <input type="text" name="contact[name]" required autocomplete="name">
+          </label>
+          <label class="nt-field">
+            <span>{{ 'contact.email' | t }}</span>
+            <input type="email" name="contact[email]" required autocomplete="email">
+          </label>
+          <label class="nt-field">
+            <span>{{ 'contact.message' | t }}</span>
+            <textarea name="contact[body]" rows="5" required></textarea>
+          </label>
+          <button type="submit" class="nt-btn nt-btn--primary nt-btn--full">{{ 'contact.submit' | t }}</button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contacto",
+  "settings": [
+    { "type": "html", "id": "map_embed", "label": "Iframe Google Maps (opcional)" }
+  ]
+}
+{% endschema %}
