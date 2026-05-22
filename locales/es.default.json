@@ -146,6 +146,13 @@
     "hero": "Hero principal",
     "filters": "Filtros"
   },
+  "checkout": {
+    "need_help": "¿Necesitas ayuda? Escríbenos por WhatsApp",
+    "secure_title": "Pago seguro",
+    "step_info": "Información",
+    "step_shipping": "Envío",
+    "step_payment": "Pago"
+  },
   "sections": {
     "featured_title": "Productos destacados",
     "featured_subtitle": "Ofertas seleccionadas para ti",

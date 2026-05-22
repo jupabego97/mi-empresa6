@@ -145,6 +145,27 @@
     ]
   },
   {
+    "name": "Checkout (apariencia)",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "El checkout de pago lo gestiona Shopify. Con Shopify Plus se usa layout/checkout.liquid de este tema. En otros planes, ve a Configuración > Checkout y personaliza con: fondo #F8FAFC, acento #0066FF, tipografía Inter, y sube el logo de NANOTRONICS."
+      },
+      {
+        "type": "color",
+        "id": "checkout_accent",
+        "label": "Color acento checkout (referencia)",
+        "default": "#0066FF"
+      },
+      {
+        "type": "color",
+        "id": "checkout_background",
+        "label": "Fondo checkout (referencia)",
+        "default": "#F8FAFC"
+      }
+    ]
+  },
+  {
     "name": "Redes sociales",
     "settings": [
       {

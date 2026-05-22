@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+  <meta name="theme-color" content="{{ settings.color_dark | default: '#0F172A' }}">
+  <title>{{ page_title }}</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  {{ content_for_header }}
+
+  {{ checkout_stylesheets }}
+
+  {{ 'checkout.css' | asset_url | stylesheet_tag }}
+
+  <style>
+    :root {
+      --nt-electric: {{ settings.color_electric | default: '#0066FF' }};
+      --nt-royal: {{ settings.color_royal | default: '#1E3A8A' }};
+      --nt-dark: {{ settings.color_dark | default: '#0F172A' }};
+    }
+  </style>
+
+  {{ checkout_scripts }}
+</head>
+<body class="nt-checkout-body">
+  <a href="#main-content" class="nt-checkout-skip">{{ 'accessibility.skip_to_content' | t }}</a>
+
+  <header class="nt-checkout-header" role="banner">
+    <div class="nt-checkout-header__inner">
+      <a href="{{ shop.url }}" class="nt-checkout-header__logo">
+        {% if settings.logo %}
+          <img
+            src="{{ settings.logo | image_url: width: settings.logo_width }}"
+            alt="{{ shop.name }}"
+            width="{{ settings.logo_width }}"
+          >
+        {% else %}
+          <span class="nt-checkout-header__wordmark">NANO<span>TRONICS</span></span>
+        {% endif %}
+      </a>
+      <div class="nt-checkout-header__trust">
+        <span>{% render 'icon', name: 'shield' %} {{ 'general.secure_payment' | t }}</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="nt-checkout-shell">
+    <aside class="nt-checkout-sidebar" role="complementary">
+      <div class="nt-checkout-sidebar__card">
+        <div class="nt-checkout-sidebar__head">
+          <h2 class="nt-checkout-sidebar__title">{{ 'general.summary' | t }}</h2>
+          {% if checkout.line_items.size > 0 %}
+            <span class="nt-checkout-sidebar__count">{{ checkout.line_items.size }} {{ 'general.products_count' | t }}</span>
+          {% endif %}
+        </div>
+        <div class="nt-checkout-sidebar__content">
+          {{ content_for_order_summary }}
+        </div>
+        <div class="nt-checkout-sidebar__footer">
+          <p class="nt-checkout-sidebar__note">{{ 'general.secure_footer' | t }}</p>
+          {% if settings.whatsapp_number != blank %}
+            <a
+              href="https://wa.me/{{ settings.whatsapp_number }}?text={{ 'whatsapp.cart_message' | t | url_encode }}"
+              class="nt-checkout-sidebar__wa"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ 'checkout.need_help' | t }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </aside>
+
+    <main id="main-content" role="main" class="nt-checkout-main">
+      <div class="nt-checkout-main__card">
+        {{ content_for_layout }}
+      </div>
+      <footer class="nt-checkout-footer">
+        <div class="nt-checkout-footer__trust">
+          <span>{% render 'icon', name: 'truck' %} {{ 'general.free_shipping' | t }}</span>
+          <span>{% render 'icon', name: 'shield' %} {{ 'general.warranty' | t }}</span>
+        </div>
+        <p class="nt-checkout-footer__legal">© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ settings.store_address }}</p>
+      </footer>
+    </main>
+  </div>
+
+  {{ tracking_code }}
+</body>
+</html>

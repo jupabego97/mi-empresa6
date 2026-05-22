@@ -1,0 +1,408 @@
+/**
+ * NANOTRONICS — Checkout (Shopify Plus checkout.liquid + branding overrides)
+ * Alineado con theme.css: Inter, azul eléctrico, cards premium
+ */
+
+:root {
+  --nt-electric: #0066FF;
+  --nt-royal: #1E3A8A;
+  --nt-dark: #0F172A;
+  --nt-gray-50: #F8FAFC;
+  --nt-gray-100: #F1F5F9;
+  --nt-gray-200: #E2E8F0;
+  --nt-gray-500: #64748B;
+  --nt-white: #FFFFFF;
+  --nt-radius: 12px;
+  --nt-radius-lg: 16px;
+  --nt-radius-xl: 20px;
+  --nt-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+  --nt-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Shell layout */
+.nt-checkout-body {
+  font-family: var(--nt-font) !important;
+  background: var(--nt-gray-50) !important;
+  color: var(--nt-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+.nt-checkout-skip {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.nt-checkout-header {
+  background: var(--nt-white);
+  border-bottom: 1px solid var(--nt-gray-200);
+  padding: 1rem clamp(1rem, 4vw, 2rem);
+}
+
+.nt-checkout-header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nt-checkout-header__logo img { display: block; height: auto; max-height: 48px; width: auto; }
+
+.nt-checkout-header__wordmark {
+  font-size: 1.375rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--nt-dark);
+  text-decoration: none;
+}
+
+.nt-checkout-header__wordmark span { color: var(--nt-electric); }
+
+.nt-checkout-header__trust {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--nt-gray-500);
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.nt-checkout-header__trust svg { color: var(--nt-electric); width: 18px; height: 18px; }
+
+.nt-checkout-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 4vw, 2rem) 3rem;
+  display: grid;
+  grid-template-columns: minmax(320px, 400px) 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Sidebar / order summary */
+.nt-checkout-sidebar__card {
+  background: var(--nt-white);
+  border: 1px solid var(--nt-gray-200);
+  border-radius: var(--nt-radius-xl);
+  box-shadow: var(--nt-shadow);
+  overflow: hidden;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.nt-checkout-sidebar__head {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--nt-gray-100);
+}
+
+.nt-checkout-sidebar__title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.nt-checkout-sidebar__count {
+  font-size: 0.8125rem;
+  color: var(--nt-gray-500);
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.nt-checkout-sidebar__content { padding: 0 1rem; }
+
+.nt-checkout-sidebar__footer {
+  padding: 1rem 1.5rem 1.25rem;
+  border-top: 1px solid var(--nt-gray-100);
+  background: var(--nt-gray-50);
+}
+
+.nt-checkout-sidebar__note {
+  font-size: 0.75rem;
+  color: var(--nt-gray-500);
+  margin: 0 0 0.5rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.nt-checkout-sidebar__wa {
+  display: block;
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #25D366;
+  text-decoration: none;
+}
+
+.nt-checkout-sidebar__wa:hover { text-decoration: underline; }
+
+/* Main checkout form area */
+.nt-checkout-main__card {
+  background: var(--nt-white);
+  border: 1px solid var(--nt-gray-200);
+  border-radius: var(--nt-radius-xl);
+  box-shadow: var(--nt-shadow);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.nt-checkout-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.nt-checkout-footer__trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--nt-gray-500);
+  margin-bottom: 0.75rem;
+}
+
+.nt-checkout-footer__trust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.nt-checkout-footer__trust svg { color: var(--nt-electric); width: 18px; height: 18px; }
+
+.nt-checkout-footer__legal {
+  font-size: 0.75rem;
+  color: var(--nt-gray-500);
+  margin: 0;
+}
+
+/* ─── Shopify checkout DOM overrides ─── */
+
+body,
+.wrap,
+.content,
+.main,
+.main__content,
+.sidebar,
+.order-summary {
+  font-family: var(--nt-font) !important;
+}
+
+/* Hide default banner if present (we use custom header) */
+.banner,
+body > .banner {
+  display: none !important;
+}
+
+/* Reset default two-column when using our shell */
+body .wrap {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+body .sidebar {
+  display: none !important;
+}
+
+body .main {
+  width: 100% !important;
+  float: none !important;
+  padding: 0 !important;
+}
+
+/* Steps & sections */
+.section,
+.section--contact-information,
+.section--shipping-method,
+.section--payment-method {
+  padding: 0 !important;
+  border: none !important;
+}
+
+.section__header {
+  margin-bottom: 1.25rem !important;
+}
+
+.section__title {
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--nt-dark) !important;
+}
+
+.section__text {
+  color: var(--nt-gray-500) !important;
+  font-size: 0.875rem !important;
+}
+
+/* Fields */
+.field__input,
+.input-text,
+select,
+textarea {
+  border: 1.5px solid var(--nt-gray-200) !important;
+  border-radius: var(--nt-radius) !important;
+  padding: 0.875rem 1rem !important;
+  font-size: 0.9375rem !important;
+  font-family: var(--nt-font) !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+  background: var(--nt-white) !important;
+}
+
+.field__input:focus,
+.input-text:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--nt-electric) !important;
+  box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.12) !important;
+  outline: none !important;
+}
+
+.field__label,
+label {
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  color: var(--nt-dark) !important;
+}
+
+/* Primary buttons */
+.btn,
+.step__footer__continue-btn,
+#continue_button {
+  background: var(--nt-electric) !important;
+  border: none !important;
+  border-radius: var(--nt-radius) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 1rem 1.5rem !important;
+  font-family: var(--nt-font) !important;
+  box-shadow: 0 4px 14px rgba(0, 102, 255, 0.35) !important;
+  transition: background 0.2s, transform 0.2s !important;
+}
+
+.btn:hover,
+.step__footer__continue-btn:hover,
+#continue_button:hover {
+  background: #0052CC !important;
+}
+
+/* Secondary / back links */
+.step__footer__previous-link,
+.sidebar__footer a,
+a[href*="cart"] {
+  color: var(--nt-electric) !important;
+  font-weight: 600 !important;
+}
+
+/* Order summary inside sidebar content */
+.order-summary__sections {
+  border-radius: 0 !important;
+}
+
+.product-table,
+.product {
+  border-bottom: 1px solid var(--nt-gray-100) !important;
+}
+
+.product__image img {
+  border-radius: 8px !important;
+  background: var(--nt-gray-50) !important;
+}
+
+.product__description__name {
+  font-weight: 700 !important;
+  font-size: 0.9375rem !important;
+}
+
+.total-line__name { color: var(--nt-gray-500) !important; font-size: 0.875rem !important; }
+
+.total-line__price,
+.payment-due__price {
+  font-weight: 800 !important;
+  color: var(--nt-dark) !important;
+}
+
+.order-summary__emphasis {
+  font-size: 1.25rem !important;
+  font-weight: 900 !important;
+}
+
+/* Breadcrumb / steps */
+.breadcrumb,
+.os-step__title {
+  font-family: var(--nt-font) !important;
+}
+
+.breadcrumb__item--current {
+  color: var(--nt-electric) !important;
+  font-weight: 700 !important;
+}
+
+/* Payment icons row */
+.payment-icons,
+.icon--payment {
+  opacity: 0.85;
+}
+
+/* Mobile order summary toggle */
+.order-summary-toggle {
+  background: var(--nt-white) !important;
+  border: 1px solid var(--nt-gray-200) !important;
+  border-radius: var(--nt-radius) !important;
+}
+
+.order-summary-toggle__inner {
+  font-weight: 700 !important;
+}
+
+/* Alternative payment / wallet buttons */
+.dynamic-checkout__content,
+.shopify-cleanslate [data-shopify-button] {
+  border-radius: var(--nt-radius) !important;
+}
+
+/* Policy links */
+.policy-list__item a {
+  color: var(--nt-gray-500) !important;
+  font-size: 0.8125rem !important;
+}
+
+/* Error states */
+.field--error .field__input {
+  border-color: #EF4444 !important;
+}
+
+.notice--error {
+  background: #FEE2E2 !important;
+  border-radius: var(--nt-radius) !important;
+  color: #DC2626 !important;
+}
+
+/* Responsive */
+@media (max-width: 999px) {
+  .nt-checkout-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .nt-checkout-sidebar {
+    order: -1;
+  }
+
+  .nt-checkout-sidebar__card {
+    position: static;
+  }
+
+  .nt-checkout-header__trust {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .nt-checkout-main__card {
+    padding: 1.25rem;
+    border-radius: var(--nt-radius-lg);
+  }
+}

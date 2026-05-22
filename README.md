@@ -86,6 +86,10 @@ En **Personalizar tema**:
 
 Crear colección automática o manual con handle `ofertas` para el enlace del header.
 
+### 5. Checkout
+
+Ver [CHECKOUT.md](CHECKOUT.md). Con **Shopify Plus** el tema aplica `layout/checkout.liquid` automáticamente. En plan estándar, personaliza colores y logo en **Configuración → Checkout → Personalizar** (#0066FF, #F8FAFC, Inter).
+
 ---
 
 ## CRO implementado
